@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../../../../components/header/header'
 import Footer from '../../../../components/footer/footer'
-import SingleQuizPage from './single-quiz-component/single-quiz-component'
+import SingleQuizComponent from './single-quiz-component/single-quiz-component'
 import './single-quiz.css'
 
 const SingleQuiz = props => {
@@ -11,7 +11,7 @@ const SingleQuiz = props => {
         <Header/>
       </div>
       <div className='container single-quiz-page'>
-        <SingleQuizPage history={props.history}/>
+        <SingleQuizComponent history={props.history}/>
       </div>
       <div>
         <Footer/>

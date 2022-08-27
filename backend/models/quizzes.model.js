@@ -30,8 +30,38 @@ const QuizzesSchema = new Schema({
       unique: false,
       trim: true
     },
-    answer: {
+    hints: {
       type: String,
+      required: false,
+      unique: false,
+      trim: true
+    },
+    answer1: {
+      type: String,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    answer2: {
+      type: String,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    answer3: {
+      type: String,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    answer4: {
+      type: String,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    correctAnswer: {
+      type: Number,
       required: true,
       unique: false,
       trim: true

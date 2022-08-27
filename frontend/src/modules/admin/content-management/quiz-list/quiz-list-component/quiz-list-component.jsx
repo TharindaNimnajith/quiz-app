@@ -49,6 +49,7 @@ const QuizListComponent = props => {
   }
 
   const onView = async id => {
+    console.log(id)
     props.history.push('/single-quiz/' + id)
   }
 
@@ -162,9 +163,8 @@ const QuizListComponent = props => {
             {
               data && data.map(item => {
                 return (
-                  <div>
-                    <Card key={item._id}
-                          title='View Quiz'
+                  <div key={item._id}>
+                    <Card title='View Quiz'
                           className='m-3 card-item justify-content-center'>
                       <CardBody onClick={() => onView(item._id)}>
                         <CardTitle className='text-uppercase text-center m-4'

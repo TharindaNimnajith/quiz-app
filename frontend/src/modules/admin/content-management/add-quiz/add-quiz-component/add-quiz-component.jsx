@@ -162,13 +162,13 @@ const AddQuizComponent = props => {
 
   const onAdd = async () => {
     setQuestions([...questions, {
-      "question": question,
-      "hints": hints,
-      "answer1": answer1,
-      "answer2": answer2,
-      "answer3": answer3,
-      "answer4": answer4,
-      "correctAnswer": correctAnswer
+      'question': question,
+      'hints': hints,
+      'answer1': answer1,
+      'answer2': answer2,
+      'answer3': answer3,
+      'answer4': answer4,
+      'correctAnswer': correctAnswer
     }])
     setNewQuestionModal(!newQuestionModal)
   }
@@ -262,61 +262,67 @@ const AddQuizComponent = props => {
           <ModalBody>
             <div>
               <TextField isRequired={true}
+                         type={'textarea'}
                          labelText={'Question'}
                          name={'question'}
                          value={question}
                          errorText={errorQuestion}
                          helperText={helperQuestion}
-                         maxLength={200}
+                         maxLength={500}
                          onChangeFn={event => onChangeQuestion(event)}/>
             </div>
             <div>
               <TextField isRequired={false}
+                         type={'textarea'}
                          labelText={'Hints'}
                          name={'hints'}
                          value={hints}
                          helperText={helperHints}
-                         maxLength={200}
+                         maxLength={500}
                          onChangeFn={event => onChangeHints(event)}/>
             </div>
             <div>
               <TextField isRequired={true}
+                         type={'textarea'}
                          labelText={'Answer 1'}
                          name={'answer1'}
                          value={answer1}
                          errorText={errorAnswer1}
                          helperText={helperAnswer1}
-                         maxLength={50}
+                         maxLength={500}
                          onChangeFn={event => onChangeAnswer1(event)}/>
             </div>
             <div>
               <TextField isRequired={true}
+                         type={'textarea'}
                          labelText={'Answer 2'}
                          name={'answer2'}
                          value={answer2}
                          errorText={errorAnswer2}
                          helperText={helperAnswer2}
-                         maxLength={50}
+                         maxLength={500}
                          onChangeFn={event => onChangeAnswer2(event)}/>
             </div>
             <div>
               <TextField isRequired={true}
+                         type={'textarea'}
                          labelText={'Answer 3'}
                          name={'answer3'}
                          value={answer3}
                          errorText={errorAnswer3}
                          helperText={helperAnswer3}
-                         maxLength={50}
+                         maxLength={500}
                          onChangeFn={event => onChangeAnswer3(event)}/>
             </div>
             <div>
               <TextField isRequired={true}
+                         type={'textarea'}
                          labelText={'Answer 4'}
                          name={'answer4'}
                          value={answer4}
                          errorText={errorAnswer4}
                          helperText={helperAnswer4}
-                         maxLength={50}
+                         maxLength={500}
                          onChangeFn={event => onChangeAnswer4(event)}/>
             </div>
             <div>
@@ -375,51 +381,59 @@ const AddQuizComponent = props => {
                              value={quizTitle}
                              errorText={errorQuizTitle}
                              helperText={helperQuizTitle}
-                             maxLength={50}
+                             maxLength={200}
                              onChangeFn={event => onChangeQuizTitle(event)}/>
                 </div>
                 <div>
                   <TextField isRequired={true}
+                             type={'textarea'}
                              labelText={'Quiz Description'}
                              name={'quizDescription'}
                              value={quizDescription}
                              errorText={errorQuizDescription}
                              helperText={helperQuizDescription}
-                             maxLength={200}
+                             maxLength={500}
                              onChangeFn={event => onChangeQuizDescription(event)}/>
                 </div>
                 <div>
                   {
-                    questions && questions.map((item) => {
+                    questions && questions.map(item => {
                       return (
-                        <div className='card bg-light p-3 my-3'>
+                        <div className='card bg-light p-3 my-3'
+                             key={item.question}>
                           <div>
                             <TextField labelText={'Question'}
+                                       type={'textarea'}
                                        value={item.question}
                                        disabled={true}/>
                           </div>
                           <div>
                             <TextField labelText={'Hints'}
+                                       type={'textarea'}
                                        value={item.hints}
                                        disabled={true}/>
                           </div>
                           <div>
                             <TextField labelText={'Answer 1'}
+                                       type={'textarea'}
                                        value={item.answer1}
                                        disabled={true}/>
                           </div>
                           <div>
                             <TextField labelText={'Answer 2'}
+                                       type={'textarea'}
                                        value={item.answer2}
                                        disabled={true}/>
                           </div>
                           <div>
                             <TextField labelText={'Answer 3'}
+                                       type={'textarea'}
                                        value={item.answer3}
                                        disabled={true}/>
                           </div>
                           <div>
                             <TextField labelText={'Answer 4'}
+                                       type={'textarea'}
                                        value={item.answer4}
                                        disabled={true}/>
                           </div>
