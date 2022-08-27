@@ -169,14 +169,12 @@ const UserManagementComponent = () => {
             <th>Last Name</th>
             <th>Email</th>
             <th>User Type</th>
-            <th colSpan={2}>
-              Actions
-            </th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>
           {
-            data && data.map((item) => {
+            data && data.map(item => {
               return (
                 <tr key={item._id}>
                   <td>
@@ -202,15 +200,6 @@ const UserManagementComponent = () => {
                           Student
                         </span>
                       )
-                    }
-                  </td>
-                  <td className='text-center'>
-                    {
-                      item.userType === 'User' ? (
-                        <i className='fa-solid fa-eye'
-                           title='View Student'
-                           onClick={onView}/>
-                      ) : null
                     }
                   </td>
                   <td className='text-center'>

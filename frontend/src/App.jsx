@@ -7,6 +7,7 @@ import Register from './modules/shared/register/register'
 import Home from './modules/user/home/home'
 import Dashboard from './modules/admin/dashboard/dashboard'
 import UserManagement from './modules/admin/user-management/user-management'
+import Leaderboard from './modules/admin/statistics/leaderboard/leaderboard'
 import QuizList from './modules/admin/content-management/quiz-list/quiz-list'
 import AddQuiz from './modules/admin/content-management/add-quiz/add-quiz'
 import SingleQuiz from './modules/admin/content-management/single-quiz/single-quiz'
@@ -52,6 +53,11 @@ const App = () => {
                            needAuthentication={true}
                            userType={admin}
                            component={UserManagement}/>
+              <RouteFilter path={'/leaderboard'}
+                           exact={true}
+                           needAuthentication={true}
+                           userType={admin}
+                           component={Leaderboard}/>
               <RouteFilter path={'/content-management'}
                            exact={true}
                            needAuthentication={true}
