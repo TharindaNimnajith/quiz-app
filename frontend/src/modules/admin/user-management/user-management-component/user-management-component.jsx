@@ -177,7 +177,7 @@ const UserManagementComponent = () => {
             data && data.map(item => {
               return (
                 <tr key={item._id}>
-                  <td>
+                  <td className='text-center'>
                     {item.userId}
                   </td>
                   <td>
@@ -189,7 +189,7 @@ const UserManagementComponent = () => {
                   <td>
                     {item.email}
                   </td>
-                  <td>
+                  <td className='text-center'>
                     {
                       item.userType === 'Admin' ? (
                         <span className='text-danger'>

@@ -5,7 +5,7 @@ import {usersApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
 import './leaderboard-component.css'
 
-const LeaderboardComponent = () => {
+const LeaderboardComponent = props => {
   const [loader, setLoader] = useState(false)
   const [data, setData] = useState(null)
   const [error, setError] = useState('')
@@ -25,6 +25,10 @@ const LeaderboardComponent = () => {
       setLoader(false)
       console.error(error)
     })
+  }
+
+  const onView = async id => {
+    props.history.push('/single-user/' + id)
   }
 
   return (
@@ -56,6 +60,7 @@ const LeaderboardComponent = () => {
             <th>Level</th>
             <th>Total</th>
             <th>Rank</th>
+            <th>Actions</th>
           </tr>
           </thead>
           <tbody>
@@ -63,7 +68,7 @@ const LeaderboardComponent = () => {
             data && data.map(item => {
               return (
                 <tr key={item._id}>
-                  <td>
+                  <td className='text-center'>
                     {item.userId}
                   </td>
                   <td>
@@ -75,14 +80,23 @@ const LeaderboardComponent = () => {
                   <td>
                     {item.email}
                   </td>
-                  <td>
-                    General
+                  <td className='text-center'>
+                    {item.level}
                   </td>
-                  <td>
-                    95
+                  <td align='right'>
+                    {item.total}
                   </td>
-                  <td>
+                  <td align='right'>
                     1
+                  </td>
+                  <td className='text-center'>
+                    {
+                      item.userType === 'User' ? (
+                        <i className='fa-solid fa-eye view'
+                           title='View Student'
+                           onClick={() => onView(item._id)}/>
+                      ) : null
+                    }
                   </td>
                 </tr>
               )

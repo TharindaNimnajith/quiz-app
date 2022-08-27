@@ -49,7 +49,6 @@ const QuizListComponent = props => {
   }
 
   const onView = async id => {
-    console.log(id)
     props.history.push('/single-quiz/' + id)
   }
 

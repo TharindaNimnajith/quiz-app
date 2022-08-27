@@ -9,6 +9,17 @@ const userTypes = [
   'User'
 ]
 
+const levels = [
+  'General',
+  '1A',
+  '1B',
+  '2A',
+  '2B',
+  '3A',
+  '3B',
+  'Done'
+]
+
 const UsersSchema = new Schema({
   userId: {
     type: Number,
@@ -47,6 +58,19 @@ const UsersSchema = new Schema({
     unique: false,
     trim: true,
     default: 'User'
+  },
+  level: {
+    type: String,
+    enum: levels,
+    required: false,
+    unique: false,
+    trim: true
+  },
+  total: {
+    type: Number,
+    required: false,
+    unique: false,
+    trim: true
   }
 }, {
   timestamps: true,

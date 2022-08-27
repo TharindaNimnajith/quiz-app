@@ -3,7 +3,7 @@ import Header from '../../../../components/header/header'
 import LeaderboardComponent from './leaderboard-component/leaderboard-component'
 import './leaderboard.css'
 
-const Leaderboard = () => {
+const Leaderboard = props => {
   return (
     <div>
       <div>
@@ -13,7 +13,7 @@ const Leaderboard = () => {
         Leaderboard
       </h1>
       <div className='container leaderboard-page'>
-        <LeaderboardComponent/>
+        <LeaderboardComponent history={props.history}/>
       </div>
     </div>
   )

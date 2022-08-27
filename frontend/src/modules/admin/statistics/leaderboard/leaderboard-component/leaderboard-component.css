@@ -11,3 +11,7 @@
 .to-back {
     z-index: -1;
 }
+
+.view {
+    color: darkblue;
+}
