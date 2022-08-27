@@ -35,10 +35,12 @@ const UserHomeComponent = () => {
       <CarouselItem onExiting={() => setAnimating(true)}
                     onExited={() => setAnimating(false)}
                     key={item.src}>
-        <img src={item.src}
-             alt={item.altText}
-             width={item.width}
-             height={item.height}/>
+        <div align='center'>
+          <img src={item.src}
+               alt={item.altText}
+               width={item.width}
+               height={item.height}/>
+        </div>
         <CarouselCaption captionHeader={item.captionHeader}
                          captionText={item.captionText}
                          className='text'/>

@@ -11,7 +11,7 @@ export const carousel1 = [
     altText: 'img',
     captionText: 'Start Your Learning Journey Today!',
     captionHeader: 'Welcome to iLearn',
-    width: '100%',
+    width: '77%',
     height: '100%'
   },
   {
@@ -19,7 +19,7 @@ export const carousel1 = [
     altText: 'img',
     captionText: 'Start Your Learning Journey Today!',
     captionHeader: 'Welcome to iLearn',
-    width: '100%',
+    width: '77%',
     height: '100%'
   },
   {
@@ -27,7 +27,7 @@ export const carousel1 = [
     altText: 'img',
     captionText: 'Start Your Learning Journey Today!',
     captionHeader: 'Welcome to iLearn',
-    width: '100%',
+    width: '77%',
     height: '100%'
   }
 ]
@@ -38,7 +38,7 @@ export const carousel2 = [
     altText: 'img',
     captionText: 'Start Your Learning Journey Today!',
     captionHeader: 'Welcome to iLearn',
-    width: '100%',
+    width: '77%',
     height: '100%'
   },
   {
@@ -46,7 +46,7 @@ export const carousel2 = [
     altText: 'img',
     captionText: 'Start Your Learning Journey Today!',
     captionHeader: 'Welcome to iLearn',
-    width: '100%',
+    width: '77%',
     height: '100%'
   },
   {
@@ -54,7 +54,7 @@ export const carousel2 = [
     altText: 'img',
     captionText: 'Start Your Learning Journey Today!',
     captionHeader: 'Welcome to iLearn',
-    width: '100%',
+    width: '77%',
     height: '100%'
   }
 ]

@@ -135,31 +135,6 @@ const UserManagementComponent = () => {
         </Modal>
       </div>
       <div>
-        <Modal isOpen={modalEdit}
-               toggle={toggleEdit}
-               className='modal-close'>
-          <ModalHeader toggle={toggleEdit}
-                       className='text-uppercase'>
-            Promote to Teacher
-          </ModalHeader>
-          <ModalBody>
-            Are you sure you want to promote this user as a teacher?
-          </ModalBody>
-          <ModalFooter>
-            <ButtonComponent btnText={'Yes'}
-                             isFullWidth={false}
-                             elementStyle={'yes-button-edit'}
-                             disabled={false}
-                             onClickFn={confirmEdit}/>
-            <ButtonComponent btnText={'No'}
-                             isFullWidth={false}
-                             elementStyle={'no-button'}
-                             disabled={false}
-                             onClickFn={toggleEdit}/>
-          </ModalFooter>
-        </Modal>
-      </div>
-      <div>
         <Modal isOpen={successModal}
                toggle={toggleSuccessModal}
                className='modal-close'>
@@ -257,15 +232,6 @@ const UserManagementComponent = () => {
                           Student
                         </span>
                       )
-                    }
-                  </td>
-                  <td className='text-center'>
-                    {
-                      item.userType === 'User' ? (
-                        <i className='fas fa-arrow-up edit'
-                           title='Promote to Teacher'
-                           onClick={() => onEdit(item._id)}/>
-                      ) : null
                     }
                   </td>
                   <td className='text-center'>
