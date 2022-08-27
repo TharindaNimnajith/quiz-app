@@ -16,9 +16,9 @@ const UserNavigationEntries = () => {
         </div>
         <div>
           <NavItem>
-            <NavLink href='/quizzes'>
+            <NavLink href='/play'>
               <i className='fa fa-fw fa-trophy mx-2 my-1'/>
-              <label>Quizzes</label>
+              <label>Play</label>
             </NavLink>
           </NavItem>
         </div>

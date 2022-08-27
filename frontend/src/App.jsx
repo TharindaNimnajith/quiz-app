@@ -12,8 +12,7 @@ import SingleUser from './modules/admin/statistics/single-user/single-user'
 import QuizList from './modules/admin/content-management/quiz-list/quiz-list'
 import AddQuiz from './modules/admin/content-management/add-quiz/add-quiz'
 import SingleQuiz from './modules/admin/content-management/single-quiz/single-quiz'
-import Quizzes from './modules/user/quizzes/quizzes/quizzes'
-import Play from './modules/user/quizzes/play/play'
+import Play from './modules/user/play/play'
 import NotFound from './modules/shared/not-found/not-found'
 import './App.css'
 
@@ -79,12 +78,7 @@ const App = () => {
                            needAuthentication={true}
                            userType={admin}
                            component={SingleQuiz}/>
-              <RouteFilter path='/quizzes'
-                           exact={true}
-                           needAuthentication={true}
-                           userType={user}
-                           component={Quizzes}/>
-              <RouteFilter path='/play/:id'
+              <RouteFilter path='/play'
                            exact={true}
                            needAuthentication={true}
                            userType={user}
