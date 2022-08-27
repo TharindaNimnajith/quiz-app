@@ -151,51 +151,50 @@ const QuizListComponent = props => {
         </small>
       </div>
       <div>
-        <div className='m-3'>
+        <div className='my-3 mx-4'>
           <ButtonComponent btnText='New Quiz'
                            isFullWidth={false}
                            disabled={false}
                            onClickFn={onNewQuiz}/>
         </div>
-        <CardDeck className='card-deck'>
-          <div>
-            {
-              data && data.map(item => {
-                return (
-                  <div key={item._id}>
-                    <Card title='View Quiz'
-                          className='m-3 card-item justify-content-center'>
-                      <CardBody onClick={() => onView(item._id)}>
-                        <CardTitle className='text-uppercase text-center m-4'
-                                   tag='h2'>
-                          <label>
-                            {item.quizTitle}
-                          </label>
-                        </CardTitle>
-                        <CardText className='m-4 text-center'>
-                          <label>
-                            {item.quizDescription}
-                          </label>
-                        </CardText>
-                        <CardText className='m-4 text-center'>
-                          <label>
-                            {item.quizLevel}
-                          </label>
-                        </CardText>
-                      </CardBody>
-                      <CardFooter>
-                        <div className='text-center m-2'>
-                          <i className='fas fa-trash-alt delete'
-                             title='Delete Quiz'
-                             onClick={() => onDelete(item._id)}/>
-                        </div>
-                      </CardFooter>
-                    </Card>
-                  </div>
-                )
-              })
-            }
-          </div>
+        <CardDeck>
+          {
+            data && data.map(item => {
+              return (
+                <div key={item._id}
+                     className='card-width'>
+                  <Card title='View Quiz'
+                        className='m-4'>
+                    <CardBody onClick={() => onView(item._id)}>
+                      <CardTitle className='text-uppercase text-center m-4'
+                                 tag='h2'>
+                        <label>
+                          {item.quizTitle}
+                        </label>
+                      </CardTitle>
+                      <CardText className='m-4 text-center'>
+                        <label>
+                          {item.quizDescription}
+                        </label>
+                      </CardText>
+                      <CardText className='m-4 text-center'>
+                        <label>
+                          {item.quizLevel}
+                        </label>
+                      </CardText>
+                    </CardBody>
+                    <CardFooter>
+                      <div className='text-center m-2'>
+                        <i className='fas fa-trash-alt delete'
+                           title='Delete Quiz'
+                           onClick={() => onDelete(item._id)}/>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </div>
+              )
+            })
+          }
         </CardDeck>
       </div>
     </div>
