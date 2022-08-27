@@ -177,6 +177,11 @@ const QuizListComponent = props => {
                             {item.quizDescription}
                           </label>
                         </CardText>
+                        <CardText className='m-4 text-center'>
+                          <label>
+                            {item.quizLevel}
+                          </label>
+                        </CardText>
                       </CardBody>
                       <CardFooter>
                         <div className='text-center m-2'>

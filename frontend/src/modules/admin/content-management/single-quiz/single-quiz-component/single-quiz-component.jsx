@@ -32,6 +32,7 @@ const SingleQuizComponent = props => {
       let data = res.data.quiz
       setQuizTitle(data.quizTitle)
       setQuizDescription(data.quizDescription)
+      setQuizLevel(data.quizLevel)
       setQuestions(data.questions)
       setLoader(false)
     }).catch(error => {
@@ -90,6 +91,11 @@ const SingleQuizComponent = props => {
                   <TextField labelText='Quiz Description'
                              type='textarea'
                              value={quizDescription}
+                             disabled={true}/>
+                </div>
+                <div>
+                  <TextField labelText='Quiz Level'
+                             value={quizLevel}
                              disabled={true}/>
                 </div>
                 <div>
