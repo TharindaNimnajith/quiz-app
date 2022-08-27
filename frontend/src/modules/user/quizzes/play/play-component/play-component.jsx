@@ -156,9 +156,9 @@ const PlayComponent = props => {
             You got all answers correct!
           </ModalBody>
           <ModalFooter>
-            <ButtonComponent btnText={'Ok'}
+            <ButtonComponent btnText='Ok'
                              isFullWidth={false}
-                             elementStyle={'ok-button'}
+                             elementStyle='ok-button'
                              disabled={false}
                              onClickFn={onClick}/>
           </ModalFooter>
@@ -191,7 +191,7 @@ const PlayComponent = props => {
                 <div className='mb-5'>
                   <TextField isRequired={true}
                              labelText={data.questions[0].question}
-                             name={'answer1'}
+                             name='answer1'
                              value={userAnswer1}
                              errorText={errorAnswer1}
                              helperText={helperAnswer1}
@@ -216,7 +216,7 @@ const PlayComponent = props => {
                 <div className='mb-5'>
                   <TextField isRequired={true}
                              labelText={data.questions[1].question}
-                             name={'answer2'}
+                             name='answer2'
                              value={userAnswer2}
                              errorText={errorAnswer2}
                              helperText={helperAnswer2}
@@ -241,7 +241,7 @@ const PlayComponent = props => {
                 <div className='mb-5'>
                   <TextField isRequired={true}
                              labelText={data.questions[2].question}
-                             name={'answer3'}
+                             name='answer3'
                              value={userAnswer3}
                              errorText={errorAnswer3}
                              helperText={helperAnswer3}
@@ -264,9 +264,9 @@ const PlayComponent = props => {
                   }
                 </div>
                 <div className='text-center mt-5 mb-5'>
-                  <ButtonComponent btnText={'Submit'}
+                  <ButtonComponent btnText='Submit'
                                    isFullWidth={false}
-                                   elementStyle={'submit-btn'}
+                                   elementStyle='submit-btn'
                                    disabled={isDisabled()}
                                    onClickFn={onSubmit}/>
                 </div>

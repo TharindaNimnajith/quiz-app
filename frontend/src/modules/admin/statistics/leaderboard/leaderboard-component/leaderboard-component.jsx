@@ -18,7 +18,7 @@ const LeaderboardComponent = props => {
   const loadData = async () => {
     setLoader(true)
     axios.get(`${usersApi}users`).then(res => {
-      setData(res.data.userList)
+      setData(res.data.userList.filter(user => user.userType === 'User').sort((a, b) => b.total - a.total))
       setLoader(false)
     }).catch(error => {
       setError('An unexpected error occurred. Please try again later.')
@@ -65,7 +65,7 @@ const LeaderboardComponent = props => {
           </thead>
           <tbody>
           {
-            data && data.map(item => {
+            data && data.map((item, index) => {
               return (
                 <tr key={item._id}>
                   <td className='text-center'>
@@ -87,16 +87,12 @@ const LeaderboardComponent = props => {
                     {item.total}
                   </td>
                   <td align='right'>
-                    1
+                    {index + 1}
                   </td>
                   <td className='text-center'>
-                    {
-                      item.userType === 'User' ? (
-                        <i className='fa-solid fa-eye view'
-                           title='View Student'
-                           onClick={() => onView(item._id)}/>
-                      ) : null
-                    }
+                    <i className='fa-solid fa-eye view'
+                       title='View Student'
+                       onClick={() => onView(item._id)}/>
                   </td>
                 </tr>
               )

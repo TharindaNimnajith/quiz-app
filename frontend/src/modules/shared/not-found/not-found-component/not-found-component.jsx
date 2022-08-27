@@ -13,7 +13,7 @@ const NotFoundComponent = () => {
             Sorry but the page you are looking for does not exist,
             have been removed, name changed or is temporarily unavailable.
           </p>
-          <Link to={'/login'}>
+          <Link to='/login'>
             <label className='home-link'>
               Go to Home Page
             </label>

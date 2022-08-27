@@ -143,9 +143,9 @@ const RegisterForm = props => {
             {message}
           </ModalBody>
           <ModalFooter>
-            <ButtonComponent btnText={'Ok'}
+            <ButtonComponent btnText='Ok'
                              isFullWidth={false}
-                             elementStyle={'ok-button'}
+                             elementStyle='ok-button'
                              disabled={false}
                              onClickFn={onClick}/>
           </ModalFooter>
@@ -178,8 +178,8 @@ const RegisterForm = props => {
             <div className='p-3'>
               <div>
                 <TextField isRequired={true}
-                           labelText={'First Name'}
-                           name={'firstName'}
+                           labelText='First Name'
+                           name='firstName'
                            value={firstName}
                            errorText={errorFirstName}
                            helperText={helperFirstName}
@@ -188,8 +188,8 @@ const RegisterForm = props => {
               </div>
               <div>
                 <TextField isRequired={true}
-                           labelText={'Last Name'}
-                           name={'lastName'}
+                           labelText='Last Name'
+                           name='lastName'
                            value={lastName}
                            errorText={errorLastName}
                            helperText={helperLastName}
@@ -198,9 +198,9 @@ const RegisterForm = props => {
               </div>
               <div>
                 <TextField isRequired={true}
-                           labelText={'Email'}
-                           type={'email'}
-                           name={'email'}
+                           labelText='Email'
+                           type='email'
+                           name='email'
                            value={email}
                            errorText={errorEmail}
                            helperText={helperEmail}
@@ -210,9 +210,9 @@ const RegisterForm = props => {
               </div>
               <div>
                 <TextField isRequired={true}
-                           labelText={'Password'}
-                           type={'password'}
-                           name={'password'}
+                           labelText='Password'
+                           type='password'
+                           name='password'
                            value={password}
                            errorText={errorPassword}
                            helperText={helperPassword}
@@ -222,9 +222,9 @@ const RegisterForm = props => {
               </div>
               <div>
                 <TextField isRequired={true}
-                           labelText={'Confirm Password'}
-                           type={'password'}
-                           name={'confirmPassword'}
+                           labelText='Confirm Password'
+                           type='password'
+                           name='confirmPassword'
                            value={confirmPassword}
                            errorText={errorConfirmPassword}
                            helperText={helperConfirmPassword}
@@ -234,16 +234,16 @@ const RegisterForm = props => {
                            onChangeFn={event => onChangeConfirmPassword(event)}/>
               </div>
               <div className='text-center mt-4 mb-3'>
-                <ButtonComponent btnText={'Register'}
+                <ButtonComponent btnText='Register'
                                  isFullWidth={false}
-                                 elementStyle={'register-btn'}
+                                 elementStyle='register-btn'
                                  disabled={isDisabled()}
                                  onClickFn={onSubmit}/>
               </div>
             </div>
             <div className='ms-3'>
               <label>Already have an account?&nbsp;</label>
-              <Link to={'/login'}>
+              <Link to='/login'>
                 <label className='login-link'>
                   Login
                 </label>

@@ -40,16 +40,16 @@ const RouteFilter = (
                    )
                  } else if (needAuthentication && !authenticated) {
                    return (
-                     <Redirect to={'/login'}/>
+                     <Redirect to='/login'/>
                    )
                  } else if (!needAuthentication && authenticated) {
                    if (appContext.loginData && appContext.loginData.userType === admin) {
                      return (
-                       <Redirect to={'/dashboard'}/>
+                       <Redirect to='/dashboard'/>
                      )
                    } else if (appContext.loginData && appContext.loginData.userType === user) {
                      return (
-                       <Redirect to={'/home'}/>
+                       <Redirect to='/home'/>
                      )
                    }
                  } else if (!needAuthentication) {
@@ -64,11 +64,11 @@ const RouteFilter = (
                    } else {
                      if (appContext.loginData && appContext.loginData.userType === admin) {
                        return (
-                         <Redirect to={'/dashboard'}/>
+                         <Redirect to='/dashboard'/>
                        )
                      } else if (appContext.loginData && appContext.loginData.userType === user) {
                        return (
-                         <Redirect to={'/home'}/>
+                         <Redirect to='/home'/>
                        )
                      }
                    }

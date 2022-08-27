@@ -58,7 +58,7 @@ const SingleUserComponent = props => {
       }
       <div>
         <div className='mb-4'>
-          <ButtonComponent btnText={'Leaderboard'}
+          <ButtonComponent btnText='Leaderboard'
                            isFullWidth={false}
                            disabled={false}
                            onClickFn={onClick}/>
@@ -85,7 +85,16 @@ const SingleUserComponent = props => {
                 </small>
               </div>
               <div>
-                Add Student Profile Here
+                <label className='my-1'>First Name: {firstName}</label>
+                <br/>
+                <label className='my-1'>Last Name: {lastName}</label>
+                <br/>
+                <label className='my-1'>Email: {email}</label>
+                <br/>
+                <label className='my-1'>Level: {level}</label>
+                <br/>
+                <label className='my-1'>Total: {total}</label>
+                <br/>
               </div>
             </CardBody>
           </Card>

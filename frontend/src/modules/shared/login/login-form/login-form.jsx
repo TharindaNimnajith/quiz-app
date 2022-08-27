@@ -111,9 +111,9 @@ const LoginForm = props => {
           <div className='p-3'>
             <div>
               <TextField isRequired={true}
-                         labelText={'Email'}
-                         type={'email'}
-                         name={'email'}
+                         labelText='Email'
+                         type='email'
+                         name='email'
                          value={email}
                          errorText={errorEmail}
                          helperText={helperEmail}
@@ -123,9 +123,9 @@ const LoginForm = props => {
             </div>
             <div>
               <TextField isRequired={true}
-                         labelText={'Password'}
-                         type={'password'}
-                         name={'password'}
+                         labelText='Password'
+                         type='password'
+                         name='password'
                          value={password}
                          errorText={errorPassword}
                          helperText={helperPassword}
@@ -134,16 +134,16 @@ const LoginForm = props => {
                          onChangeFn={event => onChangePassword(event)}/>
             </div>
             <div className='text-center mt-4 mb-3'>
-              <ButtonComponent btnText={'Login'}
+              <ButtonComponent btnText='Login'
                                isFullWidth={false}
-                               elementStyle={'login-btn'}
+                               elementStyle='login-btn'
                                disabled={isDisabled()}
                                onClickFn={onSubmit}/>
             </div>
           </div>
           <div className='ms-3'>
             <label>Don't have an account?&nbsp;</label>
-            <Link to={'/register'}>
+            <Link to='/register'>
               <label className='register-link'>
                 Register
               </label>

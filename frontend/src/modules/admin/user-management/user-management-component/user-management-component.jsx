@@ -96,9 +96,9 @@ const UserManagementComponent = () => {
             {message}
           </ModalBody>
           <ModalFooter>
-            <ButtonComponent btnText={'Ok'}
+            <ButtonComponent btnText='Ok'
                              isFullWidth={false}
-                             elementStyle={'ok-button'}
+                             elementStyle='ok-button'
                              disabled={false}
                              onClickFn={toggleSuccessModalEdit}/>
           </ModalFooter>
@@ -116,9 +116,9 @@ const UserManagementComponent = () => {
             {message}
           </ModalBody>
           <ModalFooter>
-            <ButtonComponent btnText={'Ok'}
+            <ButtonComponent btnText='Ok'
                              isFullWidth={false}
-                             elementStyle={'ok-button'}
+                             elementStyle='ok-button'
                              disabled={false}
                              onClickFn={toggleSuccessModal}/>
           </ModalFooter>
@@ -136,14 +136,14 @@ const UserManagementComponent = () => {
             Are you sure you want to delete this user?
           </ModalBody>
           <ModalFooter>
-            <ButtonComponent btnText={'Yes'}
+            <ButtonComponent btnText='Yes'
                              isFullWidth={false}
-                             elementStyle={'yes-button'}
+                             elementStyle='yes-button'
                              disabled={false}
                              onClickFn={confirmDelete}/>
-            <ButtonComponent btnText={'No'}
+            <ButtonComponent btnText='No'
                              isFullWidth={false}
-                             elementStyle={'no-button'}
+                             elementStyle='no-button'
                              disabled={false}
                              onClickFn={toggle}/>
           </ModalFooter>

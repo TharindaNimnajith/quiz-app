@@ -4,6 +4,16 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const Schema = mongoose.Schema
 
+const quizLevels = [
+  'General',
+  '1A',
+  '1B',
+  '2A',
+  '2B',
+  '3A',
+  '3B'
+]
+
 const QuizzesSchema = new Schema({
   quizId: {
     type: Number,
@@ -19,6 +29,13 @@ const QuizzesSchema = new Schema({
   },
   quizDescription: {
     type: String,
+    required: true,
+    unique: false,
+    trim: true
+  },
+  quizLevel: {
+    type: String,
+    enum: quizLevels,
     required: true,
     unique: false,
     trim: true

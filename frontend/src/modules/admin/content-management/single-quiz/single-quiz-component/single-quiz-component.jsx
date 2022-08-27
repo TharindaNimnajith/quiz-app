@@ -14,6 +14,7 @@ const SingleQuizComponent = props => {
 
   const [quizTitle, setQuizTitle] = useState('')
   const [quizDescription, setQuizDescription] = useState('')
+  const [quizLevel, setQuizLevel] = useState('')
   const [questions, setQuestions] = useState([])
 
   const {
@@ -53,7 +54,7 @@ const SingleQuizComponent = props => {
       }
       <div>
         <div className='mb-4'>
-          <ButtonComponent btnText={'Quiz List'}
+          <ButtonComponent btnText='Quiz List'
                            isFullWidth={false}
                            disabled={false}
                            onClickFn={onClick}/>
@@ -81,13 +82,13 @@ const SingleQuizComponent = props => {
               </div>
               <div className='p-3'>
                 <div>
-                  <TextField labelText={'Quiz Title'}
+                  <TextField labelText='Quiz Title'
                              value={quizTitle}
                              disabled={true}/>
                 </div>
                 <div>
-                  <TextField labelText={'Quiz Description'}
-                             type={'textarea'}
+                  <TextField labelText='Quiz Description'
+                             type='textarea'
                              value={quizDescription}
                              disabled={true}/>
                 </div>
@@ -98,43 +99,43 @@ const SingleQuizComponent = props => {
                         <div className='card bg-light p-3 my-3'
                              key={item.question}>
                           <div>
-                            <TextField labelText={'Question'}
-                                       type={'textarea'}
+                            <TextField labelText='Question'
+                                       type='textarea'
                                        value={item.question}
                                        disabled={true}/>
                           </div>
                           <div>
-                            <TextField labelText={'Hints'}
-                                       type={'textarea'}
+                            <TextField labelText='Hints'
+                                       type='textarea'
                                        value={item.hints}
                                        disabled={true}/>
                           </div>
                           <div>
-                            <TextField labelText={'Answer 1'}
-                                       type={'textarea'}
+                            <TextField labelText='Answer 1'
+                                       type='textarea'
                                        value={item.answer1}
                                        disabled={true}/>
                           </div>
                           <div>
-                            <TextField labelText={'Answer 2'}
-                                       type={'textarea'}
+                            <TextField labelText='Answer 2'
+                                       type='textarea'
                                        value={item.answer2}
                                        disabled={true}/>
                           </div>
                           <div>
-                            <TextField labelText={'Answer 3'}
-                                       type={'textarea'}
+                            <TextField labelText='Answer 3'
+                                       type='textarea'
                                        value={item.answer3}
                                        disabled={true}/>
                           </div>
                           <div>
-                            <TextField labelText={'Answer 4'}
-                                       type={'textarea'}
+                            <TextField labelText='Answer 4'
+                                       type='textarea'
                                        value={item.answer4}
                                        disabled={true}/>
                           </div>
                           <div>
-                            <TextField labelText={'Correct Answer'}
+                            <TextField labelText='Correct Answer'
                                        value={item.correctAnswer}
                                        disabled={true}/>
                           </div>
