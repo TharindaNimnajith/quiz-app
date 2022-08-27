@@ -1,7 +1,14 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-import {Card, CardBody, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
-import {isEmpty} from '../../../../../helpers/common.helpers'
+import {
+  Card,
+  CardBody,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
+} from 'reactstrap'
+import {isEmpty, isValid} from '../../../../../helpers/common.helpers'
 import {quizzesApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
 import ButtonComponent from '../../../../../components/button/button'
@@ -9,48 +16,53 @@ import TextField from '../../../../../components/text-field/text-field'
 import './add-quiz-component.css'
 
 const AddQuizComponent = props => {
+  const [newQuestionModal, setNewQuestionModal] = useState(false)
   const [successModal, setSuccessModal] = useState(false)
-  const [message, setMessage] = useState('')
 
-  const helperQuizTitle = 'Please enter a title for the quiz.'
-  const helperQuizDescription = 'Please enter a description about the quiz.'
-  const helperAnswer1 = 'Please enter the answer for question 1.'
-  const helperAnswer2 = 'Please enter the answer for question 2.'
-  const helperAnswer3 = 'Please enter the answer for question 3.'
-  const helperQuestion1 = 'Please enter question 1.'
-  const helperQuestion2 = 'Please enter question 2.'
-  const helperQuestion3 = 'Please enter question 3.'
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
   const [loader, setLoader] = useState(false)
 
+  const helperQuizTitle = 'Please enter a title for the quiz.'
+  const helperQuizDescription = 'Please enter a description about the quiz.'
+  const helperQuestion = 'Please enter the question.'
+  const helperHints = 'Please enter hints.'
+  const helperAnswer1 = 'Please enter answer 1.'
+  const helperAnswer2 = 'Please enter answer 2.'
+  const helperAnswer3 = 'Please enter answer 3.'
+  const helperAnswer4 = 'Please enter answer 4.'
+  const helperCorrectAnswer = 'Please enter the correct answer.'
+
   const [quizTitle, setQuizTitle] = useState('')
   const [quizDescription, setQuizDescription] = useState('')
-  const [question1, setQuestion1] = useState('')
+  const [question, setQuestion] = useState('')
+  const [hints, setHints] = useState('')
   const [answer1, setAnswer1] = useState('')
-  const [question2, setQuestion2] = useState('')
   const [answer2, setAnswer2] = useState('')
-  const [question3, setQuestion3] = useState('')
   const [answer3, setAnswer3] = useState('')
+  const [answer4, setAnswer4] = useState('')
+  const [correctAnswer, setCorrectAnswer] = useState('')
 
   const [errorQuizTitle, setErrorQuizTitle] = useState('')
   const [errorQuizDescription, setErrorQuizDescription] = useState('')
-  const [errorQuestion1, setErrorQuestion1] = useState('')
+  const [errorQuestion, setErrorQuestion] = useState('')
   const [errorAnswer1, setErrorAnswer1] = useState('')
-  const [errorQuestion2, setErrorQuestion2] = useState('')
   const [errorAnswer2, setErrorAnswer2] = useState('')
-  const [errorQuestion3, setErrorQuestion3] = useState('')
   const [errorAnswer3, setErrorAnswer3] = useState('')
+  const [errorAnswer4, setErrorAnswer4] = useState('')
+  const [errorCorrectAnswer, setErrorCorrectAnswer] = useState('')
 
   const [quizTitleValid, setQuizTitleValid] = useState(false)
   const [quizDescriptionValid, setQuizDescriptionValid] = useState(false)
-  const [question1Valid, setQuestion1Valid] = useState(false)
+  const [questionValid, setQuestionValid] = useState(false)
   const [answer1Valid, setAnswer1Valid] = useState(false)
-  const [question2Valid, setQuestion2Valid] = useState(false)
   const [answer2Valid, setAnswer2Valid] = useState(false)
-  const [question3Valid, setQuestion3Valid] = useState(false)
   const [answer3Valid, setAnswer3Valid] = useState(false)
+  const [answer4Valid, setAnswer4Valid] = useState(false)
+  const [correctAnswerValid, setCorrectAnswerValid] = useState(false)
 
-  const [error, setError] = useState('')
+  const [questions, setQuestions] = useState([])
 
   const onChangeQuizTitle = async event => {
     setQuizTitle(event.value)
@@ -70,31 +82,17 @@ const AddQuizComponent = props => {
     }
   }
 
-  const onChangeQuestion1 = async event => {
-    setQuestion1(event.value)
-    setQuestion1Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
-    setErrorQuestion1('')
+  const onChangeQuestion = async event => {
+    setQuestion(event.value)
+    setQuestionValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    setErrorQuestion('')
     if (!event.eventInfo.target.validity.valid) {
-      setErrorQuestion1('Please enter a valid question.')
+      setErrorQuestion('Please enter a valid question.')
     }
   }
 
-  const onChangeQuestion2 = async event => {
-    setQuestion2(event.value)
-    setQuestion2Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
-    setErrorQuestion2('')
-    if (!event.eventInfo.target.validity.valid) {
-      setErrorQuestion2('Please enter a valid question.')
-    }
-  }
-
-  const onChangeQuestion3 = async event => {
-    setQuestion3(event.value)
-    setQuestion3Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
-    setErrorQuestion3('')
-    if (!event.eventInfo.target.validity.valid) {
-      setErrorQuestion3('Please enter a valid question.')
-    }
+  const onChangeHints = async event => {
+    setHints(event.value)
   }
 
   const onChangeAnswer1 = async event => {
@@ -124,17 +122,55 @@ const AddQuizComponent = props => {
     }
   }
 
+  const onChangeAnswer4 = async event => {
+    setAnswer4(event.value)
+    setAnswer4Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    setErrorAnswer4('')
+    if (!event.eventInfo.target.validity.valid) {
+      setErrorAnswer4('Please enter a valid answer.')
+    }
+  }
+
+  const onChangeCorrectAnswer = async event => {
+    setCorrectAnswer(event.value)
+    setCorrectAnswerValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value) && await isValid(event.value))
+    setErrorCorrectAnswer('')
+    if (!event.eventInfo.target.validity.valid) {
+      setErrorCorrectAnswer('Please enter the valid number for correct answer (1/2/3/4).')
+    }
+  }
+
   function isDisabled() {
-    return !quizTitleValid || !quizDescriptionValid || !question1Valid || !question2Valid || !question3Valid ||
-      !answer1Valid || !answer2Valid || !answer3Valid
+    return !quizTitleValid || !quizDescriptionValid || questions.length === 0
+  }
+
+  function isAddDisabled() {
+    return !questionValid || !answer1Valid || !answer2Valid || !answer3Valid || !answer4Valid || !correctAnswerValid
   }
 
   const toggleSuccessModal = async () => {
     setSuccessModal(!successModal)
   }
 
+  const toggleNewQuestionModal = async () => {
+    setNewQuestionModal(!newQuestionModal)
+  }
+
   const onClick = async () => {
     props.history.push('/content-management')
+  }
+
+  const onAdd = async () => {
+    setQuestions([...questions, {
+      "question": question,
+      "hints": hints,
+      "answer1": answer1,
+      "answer2": answer2,
+      "answer3": answer3,
+      "answer4": answer4,
+      "correctAnswer": correctAnswer
+    }])
+    setNewQuestionModal(!newQuestionModal)
   }
 
   const onSubmit = async () => {
@@ -142,20 +178,7 @@ const AddQuizComponent = props => {
     const data = {
       'quizTitle': quizTitle.trim(),
       'quizDescription': quizDescription.trim(),
-      'questions': [
-        {
-          question: question1.trim(),
-          answer: answer1.trim()
-        },
-        {
-          question: question2.trim(),
-          answer: answer2.trim()
-        },
-        {
-          question: question3.trim(),
-          answer: answer3.trim()
-        }
-      ]
+      'questions': questions
     }
     setLoader(true)
     axios.post(`${quizzesApi}quizzes`, data).then(res => {
@@ -172,6 +195,33 @@ const AddQuizComponent = props => {
       setLoader(false)
       console.error(error)
     })
+  }
+
+  const onAddNewQuestion = async () => {
+    await reset()
+    await toggleNewQuestionModal()
+  }
+
+  const reset = async () => {
+    setQuestion('')
+    setHints('')
+    setAnswer1('')
+    setAnswer2('')
+    setAnswer3('')
+    setAnswer4('')
+    setCorrectAnswer('')
+    setErrorQuestion('')
+    setErrorAnswer1('')
+    setErrorAnswer2('')
+    setErrorAnswer3('')
+    setErrorAnswer4('')
+    setErrorCorrectAnswer('')
+    setQuestionValid(false)
+    setAnswer1Valid(false)
+    setAnswer2Valid(false)
+    setAnswer3Valid(false)
+    setAnswer4Valid(false)
+    setCorrectAnswerValid(false)
   }
 
   return (
@@ -198,6 +248,94 @@ const AddQuizComponent = props => {
                              elementStyle={'ok-button'}
                              disabled={false}
                              onClickFn={onClick}/>
+          </ModalFooter>
+        </Modal>
+      </div>
+      <div>
+        <Modal isOpen={newQuestionModal}
+               toggle={toggleNewQuestionModal}
+               className='modal-close'>
+          <ModalHeader toggle={toggleNewQuestionModal}
+                       className='text-uppercase title'>
+            New Question
+          </ModalHeader>
+          <ModalBody>
+            <div>
+              <TextField isRequired={true}
+                         labelText={'Question'}
+                         name={'question'}
+                         value={question}
+                         errorText={errorQuestion}
+                         helperText={helperQuestion}
+                         maxLength={200}
+                         onChangeFn={event => onChangeQuestion(event)}/>
+            </div>
+            <div>
+              <TextField isRequired={false}
+                         labelText={'Hints'}
+                         name={'hints'}
+                         value={hints}
+                         helperText={helperHints}
+                         maxLength={200}
+                         onChangeFn={event => onChangeHints(event)}/>
+            </div>
+            <div>
+              <TextField isRequired={true}
+                         labelText={'Answer 1'}
+                         name={'answer1'}
+                         value={answer1}
+                         errorText={errorAnswer1}
+                         helperText={helperAnswer1}
+                         maxLength={50}
+                         onChangeFn={event => onChangeAnswer1(event)}/>
+            </div>
+            <div>
+              <TextField isRequired={true}
+                         labelText={'Answer 2'}
+                         name={'answer2'}
+                         value={answer2}
+                         errorText={errorAnswer2}
+                         helperText={helperAnswer2}
+                         maxLength={50}
+                         onChangeFn={event => onChangeAnswer2(event)}/>
+            </div>
+            <div>
+              <TextField isRequired={true}
+                         labelText={'Answer 3'}
+                         name={'answer3'}
+                         value={answer3}
+                         errorText={errorAnswer3}
+                         helperText={helperAnswer3}
+                         maxLength={50}
+                         onChangeFn={event => onChangeAnswer3(event)}/>
+            </div>
+            <div>
+              <TextField isRequired={true}
+                         labelText={'Answer 4'}
+                         name={'answer4'}
+                         value={answer4}
+                         errorText={errorAnswer4}
+                         helperText={helperAnswer4}
+                         maxLength={50}
+                         onChangeFn={event => onChangeAnswer4(event)}/>
+            </div>
+            <div>
+              <TextField isRequired={true}
+                         labelText={'Correct Answer'}
+                         name={'correctAnswer'}
+                         value={correctAnswer}
+                         errorText={errorCorrectAnswer}
+                         helperText={helperCorrectAnswer}
+                         maxLength={1}
+                         onChangeFn={event => onChangeCorrectAnswer(event)}/>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <ButtonComponent btnText={'Add'}
+                             isFullWidth={false}
+                             elementStyle={'ok-button'}
+                             disabled={isAddDisabled()}
+                             onClickFn={onAdd}/>
           </ModalFooter>
         </Modal>
       </div>
@@ -251,64 +389,56 @@ const AddQuizComponent = props => {
                              onChangeFn={event => onChangeQuizDescription(event)}/>
                 </div>
                 <div>
-                  <TextField isRequired={true}
-                             labelText={'Question 1'}
-                             name={'question1'}
-                             value={question1}
-                             errorText={errorQuestion1}
-                             helperText={helperQuestion1}
-                             maxLength={200}
-                             onChangeFn={event => onChangeQuestion1(event)}/>
+                  {
+                    questions && questions.map((item) => {
+                      return (
+                        <div className='card bg-light p-3 my-3'>
+                          <div>
+                            <TextField labelText={'Question'}
+                                       value={item.question}
+                                       disabled={true}/>
+                          </div>
+                          <div>
+                            <TextField labelText={'Hints'}
+                                       value={item.hints}
+                                       disabled={true}/>
+                          </div>
+                          <div>
+                            <TextField labelText={'Answer 1'}
+                                       value={item.answer1}
+                                       disabled={true}/>
+                          </div>
+                          <div>
+                            <TextField labelText={'Answer 2'}
+                                       value={item.answer2}
+                                       disabled={true}/>
+                          </div>
+                          <div>
+                            <TextField labelText={'Answer 3'}
+                                       value={item.answer3}
+                                       disabled={true}/>
+                          </div>
+                          <div>
+                            <TextField labelText={'Answer 4'}
+                                       value={item.answer4}
+                                       disabled={true}/>
+                          </div>
+                          <div>
+                            <TextField labelText={'Correct Answer'}
+                                       value={item.correctAnswer}
+                                       disabled={true}/>
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
                 </div>
-                <div>
-                  <TextField isRequired={true}
-                             labelText={'Answer for Question 1'}
-                             name={'answer1'}
-                             value={answer1}
-                             errorText={errorAnswer1}
-                             helperText={helperAnswer1}
-                             maxLength={50}
-                             onChangeFn={event => onChangeAnswer1(event)}/>
-                </div>
-                <div>
-                  <TextField isRequired={true}
-                             labelText={'Question 2'}
-                             name={'question2'}
-                             value={question2}
-                             errorText={errorQuestion2}
-                             helperText={helperQuestion2}
-                             maxLength={200}
-                             onChangeFn={event => onChangeQuestion2(event)}/>
-                </div>
-                <div>
-                  <TextField isRequired={true}
-                             labelText={'Answer for Question 2'}
-                             name={'answer2'}
-                             value={answer2}
-                             errorText={errorAnswer2}
-                             helperText={helperAnswer2}
-                             maxLength={50}
-                             onChangeFn={event => onChangeAnswer2(event)}/>
-                </div>
-                <div>
-                  <TextField isRequired={true}
-                             labelText={'Question 3'}
-                             name={'question3'}
-                             value={question3}
-                             errorText={errorQuestion3}
-                             helperText={helperQuestion3}
-                             maxLength={200}
-                             onChangeFn={event => onChangeQuestion3(event)}/>
-                </div>
-                <div>
-                  <TextField isRequired={true}
-                             labelText={'Answer for Question 3'}
-                             name={'answer3'}
-                             value={answer3}
-                             errorText={errorAnswer3}
-                             helperText={helperAnswer3}
-                             maxLength={50}
-                             onChangeFn={event => onChangeAnswer3(event)}/>
+                <div className='text-center mt-4 mb-3'>
+                  <ButtonComponent btnText={'Add New Question'}
+                                   isFullWidth={false}
+                                   elementStyle={'submit-btn'}
+                                   disabled={false}
+                                   onClickFn={onAddNewQuestion}/>
                 </div>
                 <div className='text-center mt-4 mb-3'>
                   <ButtonComponent btnText={'Submit'}
