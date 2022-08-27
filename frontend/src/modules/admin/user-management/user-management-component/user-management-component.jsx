@@ -11,10 +11,8 @@ const UserManagementComponent = () => {
   const [successModal, setSuccessModal] = useState(false)
   const [successModalEdit, setSuccessModalEdit] = useState(false)
   const [modal, setModal] = useState(false)
-  const [modalEdit, setModalEdit] = useState(false)
   const [message, setMessage] = useState('')
   const [deleteId, setDeleteId] = useState('')
-  const [editId, setEditId] = useState('')
   const [data, setData] = useState(null)
   const [error, setError] = useState('')
 
@@ -35,45 +33,17 @@ const UserManagementComponent = () => {
     })
   }
 
-  const onEdit = async id => {
-    setEditId(id)
-    await toggleEdit()
-  }
-
-  const toggleEdit = async () => {
-    setModalEdit(!modalEdit)
-  }
-
   const toggleSuccessModalEdit = async () => {
     setSuccessModalEdit(!successModalEdit)
-  }
-
-  const confirmEdit = async () => {
-    setError('')
-    setLoader(true)
-    axios.put(`${usersApi}users/promote/${editId}`).then(res => {
-      if (res.data.status === 200) {
-        setMessage(res.data.message)
-        toggleEdit()
-        toggleSuccessModalEdit()
-        loadData()
-      } else {
-        toggleEdit()
-        setError('An unexpected error occurred. Please try again later.')
-        console.error(error)
-      }
-      setLoader(false)
-    }).catch(error => {
-      toggleEdit()
-      setError('An unexpected error occurred. Please try again later.')
-      setLoader(false)
-      console.error(error)
-    })
   }
 
   const onDelete = async id => {
     setDeleteId(id)
     await toggle()
+  }
+
+  const onView = async () => {
+    console.log('View Student')
   }
 
   const toggle = async () => {
@@ -232,6 +202,15 @@ const UserManagementComponent = () => {
                           Student
                         </span>
                       )
+                    }
+                  </td>
+                  <td className='text-center'>
+                    {
+                      item.userType === 'User' ? (
+                        <i className='fa-solid fa-eye'
+                           title='View Student'
+                           onClick={onView}/>
+                      ) : null
                     }
                   </td>
                   <td className='text-center'>
