@@ -422,7 +422,7 @@ const AddQuizComponent = props => {
                   {
                     questions && questions.map(item => {
                       return (
-                        <div className='card bg-light p-3 my-3'
+                        <div className='card bg-light p-3 mt-5'
                              key={item.question}>
                           <div>
                             <TextField labelText='Question'
@@ -470,14 +470,14 @@ const AddQuizComponent = props => {
                     })
                   }
                 </div>
-                <div className='text-center mt-4 mb-3'>
+                <div className='text-center mt-5'>
                   <ButtonComponent btnText='Add New Question'
                                    isFullWidth={false}
                                    elementStyle='submit-btn'
                                    disabled={false}
                                    onClickFn={onAddNewQuestion}/>
                 </div>
-                <div className='text-center mt-4 mb-3'>
+                <div className='text-center mt-5 mb-3'>
                   <ButtonComponent btnText='Submit'
                                    isFullWidth={false}
                                    elementStyle='submit-btn'

@@ -102,7 +102,7 @@ const SingleQuizComponent = props => {
                   {
                     questions && questions.map(item => {
                       return (
-                        <div className='card bg-light p-3 my-3'
+                        <div className='card bg-light p-3 mt-5'
                              key={item.question}>
                           <div>
                             <TextField labelText='Question'

@@ -24,7 +24,7 @@ const UserManagementComponent = () => {
   const loadData = async () => {
     setLoader(true)
     axios.get(`${usersApi}users`).then(res => {
-      setData(res.data.userList)
+      setData(res.data.userList.sort((a, b) => a.userId - b.userId))
       setLoader(false)
     }).catch(error => {
       setError('An unexpected error occurred. Please try again later.')
