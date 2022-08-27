@@ -1,13 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-import {
-  Card,
-  CardBody,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader
-} from 'reactstrap'
+import {Card, CardBody, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {isEmpty, isValid} from '../../../../../helpers/common.helpers'
 import {quizzesApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'

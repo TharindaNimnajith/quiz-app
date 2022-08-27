@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {Card, CardBody} from 'reactstrap'
 import axios from 'axios'
-import {quizzesApi} from '../../../../../config/api.config'
+import {usersApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
 import ButtonComponent from '../../../../../components/button/button'
 import './single-user-component.css'
@@ -29,7 +29,7 @@ const SingleUserComponent = props => {
 
   const loadData = async () => {
     setLoader(true)
-    axios.get(`${quizzesApi}users/${id}`).then(res => {
+    axios.get(`${usersApi}users/${id}`).then(res => {
       let data = res.data.user
       setUserId(data.userId)
       setFirstName(data.firstName)
