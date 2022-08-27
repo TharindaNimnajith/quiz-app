@@ -1,0 +1,8 @@
+.card-deck {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-item {
+    flex: 1;
+}

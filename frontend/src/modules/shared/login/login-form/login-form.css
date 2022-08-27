@@ -1,0 +1,32 @@
+.login-wrapper {
+    min-width: max-content;
+    width: 40%;
+}
+
+.login-header {
+    background-color: #626ed4;
+}
+
+.login-icon {
+    color: white;
+    font-size: xxx-large;
+}
+
+.login-btn {
+    min-width: max-content;
+    padding-left: 7%;
+    padding-right: 7%;
+}
+
+.register-link:hover {
+    cursor: pointer;
+    color: #183475;
+}
+
+.register-link:active {
+    color: #183475;
+}
+
+.error {
+    color: red;
+}

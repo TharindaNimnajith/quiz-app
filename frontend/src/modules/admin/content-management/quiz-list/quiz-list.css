@@ -1,0 +1,11 @@
+.quiz-list-page {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    margin-bottom: 4%;
+}
+
+.page-title {
+    letter-spacing: 7px;
+    color: #183475;
+}

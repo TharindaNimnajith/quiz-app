@@ -1,0 +1,44 @@
+.error {
+    color: red;
+}
+
+.edit {
+    color: darkgreen;
+}
+
+.delete {
+    color: orangered;
+}
+
+.yes-button {
+    background-color: darkred !important;
+    border: darkred !important;
+    width: 80px;
+}
+
+.yes-button-edit {
+    background-color: green !important;
+    border: green !important;
+    width: 80px;
+}
+
+.no-button {
+    background-color: #606060 !important;
+    border: #606060 !important;
+    width: 80px;
+}
+
+.ok-button {
+    width: 80px;
+}
+
+.modal-close button {
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.title {
+    color: #F8F8FA;
+    background-color: #626ed4;
+}
