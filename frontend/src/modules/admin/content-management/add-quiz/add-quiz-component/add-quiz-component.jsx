@@ -60,36 +60,40 @@ const AddQuizComponent = props => {
 
   const onChangeQuizTitle = async event => {
     setQuizTitle(event.value)
-    setQuizTitleValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value);
+    setQuizTitleValid(valid)
     setErrorQuizTitle('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorQuizTitle('Please enter a valid quiz title.')
     }
   }
 
   const onChangeQuizDescription = async event => {
     setQuizDescription(event.value)
-    setQuizDescriptionValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setQuizDescriptionValid(valid)
     setErrorQuizDescription('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorQuizDescription('Please enter a valid quiz description.')
     }
   }
 
   const onChangeQuizLevel = async event => {
     setQuizLevel(event.value)
-    setQuizLevelValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value) && await isValidQuizLevel(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value) && await isValidQuizLevel(event.value)
+    setQuizLevelValid(valid)
     setErrorQuizLevel('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorQuizLevel('Please enter the valid text for quiz level (General/1A/1B/2A/2B/3A/3B).')
     }
   }
 
   const onChangeQuestion = async event => {
     setQuestion(event.value)
-    setQuestionValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setQuestionValid(valid)
     setErrorQuestion('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorQuestion('Please enter a valid question.')
     }
   }
@@ -100,45 +104,50 @@ const AddQuizComponent = props => {
 
   const onChangeAnswer1 = async event => {
     setAnswer1(event.value)
-    setAnswer1Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setAnswer1Valid(valid)
     setErrorAnswer1('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorAnswer1('Please enter a valid answer.')
     }
   }
 
   const onChangeAnswer2 = async event => {
     setAnswer2(event.value)
-    setAnswer2Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setAnswer2Valid(valid)
     setErrorAnswer2('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorAnswer2('Please enter a valid answer.')
     }
   }
 
   const onChangeAnswer3 = async event => {
     setAnswer3(event.value)
-    setAnswer3Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setAnswer3Valid(valid)
     setErrorAnswer3('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorAnswer3('Please enter a valid answer.')
     }
   }
 
   const onChangeAnswer4 = async event => {
     setAnswer4(event.value)
-    setAnswer4Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setAnswer4Valid(valid)
     setErrorAnswer4('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorAnswer4('Please enter a valid answer.')
     }
   }
 
   const onChangeCorrectAnswer = async event => {
     setCorrectAnswer(event.value)
-    setCorrectAnswerValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value) && await isValidCorrectAnswer(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value) && await isValidCorrectAnswer(event.value)
+    setCorrectAnswerValid(valid)
     setErrorCorrectAnswer('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorCorrectAnswer('Please enter the valid number for correct answer (1/2/3/4).')
     }
   }

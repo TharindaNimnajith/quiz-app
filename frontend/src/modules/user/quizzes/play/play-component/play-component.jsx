@@ -68,9 +68,10 @@ const PlayComponent = props => {
   const onChangeAnswer1 = async event => {
     setMarkResults(false)
     setUserAnswer1(event.value)
-    setAnswer1Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setAnswer1Valid(valid)
     setErrorAnswer1('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorAnswer1('Please enter a valid answer.')
     }
     if (event.value.trim() === data.questions[0].answer) {
@@ -83,9 +84,10 @@ const PlayComponent = props => {
   const onChangeAnswer2 = async event => {
     setMarkResults(false)
     setUserAnswer2(event.value)
-    setAnswer2Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setAnswer2Valid(valid)
     setErrorAnswer2('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorAnswer2('Please enter a valid answer.')
     }
     if (event.value.trim() === data.questions[1].answer) {
@@ -98,9 +100,10 @@ const PlayComponent = props => {
   const onChangeAnswer3 = async event => {
     setMarkResults(false)
     setUserAnswer3(event.value)
-    setAnswer3Valid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setAnswer3Valid(valid)
     setErrorAnswer3('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorAnswer3('Please enter a valid answer.')
     }
     if (event.value.trim() === data.questions[2].answer) {

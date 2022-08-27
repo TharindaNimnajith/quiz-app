@@ -33,20 +33,22 @@ const LoginForm = props => {
 
   const onChangeEmail = async event => {
     setEmail(event.value)
-    setEmailValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setEmailValid(valid)
     setErrorEmail('')
     setError('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorEmail('Please enter a valid email address.')
     }
   }
 
   const onChangePassword = async event => {
     setPassword(event.value)
-    setPasswordValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setPasswordValid(valid)
     setErrorPassword('')
     setError('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorPassword('Please enter a valid password.')
     }
   }

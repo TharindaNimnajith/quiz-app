@@ -43,46 +43,51 @@ const RegisterForm = props => {
 
   const onChangeFirstName = async event => {
     setFirstName(event.value)
-    setFirstNameValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setFirstNameValid(valid)
     setErrorFirstName('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorFirstName('Please enter a valid first name.')
     }
   }
 
   const onChangeLastName = async event => {
     setLastName(event.value)
-    setLastNameValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setLastNameValid(valid)
     setErrorLastName('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorLastName('Please enter a valid last name.')
     }
   }
 
   const onChangeEmail = async event => {
     setEmail(event.value)
-    setEmailValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setEmailValid(valid)
     setErrorEmail('')
     setError('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorEmail('Please enter a valid email address.')
     }
   }
 
   const onChangePassword = async event => {
     setPassword(event.value)
-    setPasswordValid(event.eventInfo.target.validity.valid && !await isEmpty(event.value))
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
+    setPasswordValid(valid)
     setErrorPassword('')
-    if (!event.eventInfo.target.validity.valid) {
+    if (!valid) {
       setErrorPassword('Please enter a strong password with at least 4 characters.')
     }
   }
 
   const onChangeConfirmPassword = async event => {
     setConfirmPassword(event.value)
-    setConfirmPasswordValid(event.value === password)
+    let valid = event.value === password
+    setConfirmPasswordValid(valid)
     setErrorConfirmPassword('')
-    if (event.value !== password) {
+    if (!valid) {
       setErrorConfirmPassword('Please make sure your passwords match.')
     }
   }
