@@ -1,6 +1,5 @@
 import React from 'react'
 import Header from '../../../../components/header/header'
-import Footer from '../../../../components/footer/footer'
 import QuizzesComponent from './quizzes-component/quizzes-component'
 import './quizzes.css'
 
@@ -15,9 +14,6 @@ const Quizzes = props => {
       </h1>
       <div className='container quizzes-page'>
         <QuizzesComponent history={props.history}/>
-      </div>
-      <div>
-        <Footer/>
       </div>
     </div>
   )
