@@ -7,7 +7,7 @@ export const carousel1 = [
     altText: 'img',
     captionText: 'Start Your Learning Journey Today!',
     captionHeader: 'Welcome to iLearn',
-    width: '81%',
+    width: '81.8%',
     height: '100%'
   }
 ]
@@ -18,7 +18,7 @@ export const carousel2 = [
     altText: 'img',
     captionText: 'Start Your Learning Journey Today!',
     captionHeader: 'Welcome to iLearn',
-    width: '81%',
+    width: '81.8%',
     height: '100%'
   }
 ]
