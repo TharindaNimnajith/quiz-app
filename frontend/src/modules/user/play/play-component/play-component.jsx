@@ -1,34 +1,11 @@
-import React, {useState} from 'react'
-import Loader from '../../../../components/loader/loader'
+import React from 'react'
 import './play-component.css'
 
-const PlayComponent = () => {
-  const [loader, setLoader] = useState(false)
-  const [error, setError] = useState('')
-
+const PlayComponent = props => {
+  console.log(props.data)
   return (
     <div>
-      {
-        loader ? (
-          <Loader/>
-        ) : null
-      }
-      <div>
-        <div>
-          <small>
-            {
-              error ? (
-                <span className='p-3 error'>
-                  {error}
-                </span>
-              ) : null
-            }
-          </small>
-        </div>
-      </div>
-      <div>
-        Play
-      </div>
+      Play
     </div>
   )
 }

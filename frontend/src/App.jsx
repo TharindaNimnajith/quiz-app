@@ -5,6 +5,7 @@ import RouteFilter from './routes/route-filter'
 import Login from './modules/shared/login/login'
 import Register from './modules/shared/register/register'
 import Home from './modules/user/home/home'
+import Play from './modules/user/play/play'
 import Dashboard from './modules/admin/dashboard/dashboard'
 import UserManagement from './modules/admin/user-management/user-management'
 import Leaderboard from './modules/admin/statistics/leaderboard/leaderboard'
@@ -12,7 +13,6 @@ import SingleUser from './modules/admin/statistics/single-user/single-user'
 import QuizList from './modules/admin/content-management/quiz-list/quiz-list'
 import AddQuiz from './modules/admin/content-management/add-quiz/add-quiz'
 import SingleQuiz from './modules/admin/content-management/single-quiz/single-quiz'
-import Play from './modules/user/play/play'
 import NotFound from './modules/shared/not-found/not-found'
 import './App.css'
 
@@ -43,6 +43,11 @@ const App = () => {
                            needAuthentication={true}
                            userType={user}
                            component={Home}/>
+              <RouteFilter path='/play'
+                           exact={true}
+                           needAuthentication={true}
+                           userType={user}
+                           component={Play}/>
               <RouteFilter path='/dashboard'
                            exact={true}
                            needAuthentication={true}
@@ -78,11 +83,6 @@ const App = () => {
                            needAuthentication={true}
                            userType={admin}
                            component={SingleQuiz}/>
-              <RouteFilter path='/play'
-                           exact={true}
-                           needAuthentication={true}
-                           userType={user}
-                           component={Play}/>
               <Route component={NotFound}/>
             </Switch>
           </BrowserRouter>
