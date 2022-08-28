@@ -34,7 +34,7 @@ const PlayComponent = props => {
   }
 
   const next = async () => {
-    props.history.push('/play')
+    window.location.reload()
   }
 
   const onChangeValue = async (index, event) => {
@@ -48,11 +48,11 @@ const PlayComponent = props => {
     setError('')
     setLoader(true)
     const data = {
-      'level': '',
-      'total': 0,
+      'level': 'Done',
+      'total': 70,
       'results': []
     }
-    axios.put(`${usersApi}usersss/${appContext.loginData._id}`, data).then(res => {
+    axios.put(`${usersApi}users/${appContext.loginData._id}`, data).then(res => {
       if (res.data.status === 200) {
         setMessage(res.data.message)
         setSubmitted(true)
@@ -177,7 +177,7 @@ const PlayComponent = props => {
                          disabled={submitted}
                          onChange={event => onChangeValue(index, event)}/>
                   <label className='mx-2'>
-                    1.&nbsp;{item.answer1}
+                    1)&nbsp;{item.answer1}
                   </label>
                 </div>
                 <div className='mt-2'>
@@ -187,7 +187,7 @@ const PlayComponent = props => {
                          disabled={submitted}
                          onChange={event => onChangeValue(index, event)}/>
                   <label className='mx-2'>
-                    2.&nbsp;{item.answer2}
+                    2)&nbsp;{item.answer2}
                   </label>
                 </div>
                 <div className='mt-2'>
@@ -197,7 +197,7 @@ const PlayComponent = props => {
                          disabled={submitted}
                          onChange={event => onChangeValue(index, event)}/>
                   <label className='mx-2'>
-                    3.&nbsp;{item.answer3}
+                    3)&nbsp;{item.answer3}
                   </label>
                 </div>
                 <div className='mt-2'>
@@ -207,7 +207,7 @@ const PlayComponent = props => {
                          disabled={submitted}
                          onChange={event => onChangeValue(index, event)}/>
                   <label className='mx-2'>
-                    4.&nbsp;{item.answer4}
+                    4)&nbsp;{item.answer4}
                   </label>
                 </div>
               </div>
