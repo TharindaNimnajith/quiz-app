@@ -7,14 +7,15 @@ import ButtonComponent from '../../../../components/button/button'
 import './user-management-component.css'
 
 const UserManagementComponent = () => {
-  const [loader, setLoader] = useState(false)
   const [successModal, setSuccessModal] = useState(false)
-  const [successModalEdit, setSuccessModalEdit] = useState(false)
   const [modal, setModal] = useState(false)
+
+  const [loader, setLoader] = useState(false)
   const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+
   const [deleteId, setDeleteId] = useState('')
   const [data, setData] = useState(null)
-  const [error, setError] = useState('')
 
   useEffect(() => {
     loadData().then(() => {
@@ -31,10 +32,6 @@ const UserManagementComponent = () => {
       setLoader(false)
       console.error(error)
     })
-  }
-
-  const toggleSuccessModalEdit = async () => {
-    setSuccessModalEdit(!successModalEdit)
   }
 
   const onDelete = async id => {
@@ -80,26 +77,6 @@ const UserManagementComponent = () => {
           <Loader/>
         ) : null
       }
-      <div>
-        <Modal isOpen={successModalEdit}
-               toggle={toggleSuccessModalEdit}
-               className='modal-close'>
-          <ModalHeader toggle={toggleSuccessModalEdit}
-                       className='text-uppercase title'>
-            Success!
-          </ModalHeader>
-          <ModalBody>
-            {message}
-          </ModalBody>
-          <ModalFooter>
-            <ButtonComponent btnText='Ok'
-                             isFullWidth={false}
-                             elementStyle='ok-button'
-                             disabled={false}
-                             onClickFn={toggleSuccessModalEdit}/>
-          </ModalFooter>
-        </Modal>
-      </div>
       <div>
         <Modal isOpen={successModal}
                toggle={toggleSuccessModal}

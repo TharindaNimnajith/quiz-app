@@ -18,13 +18,15 @@ import ButtonComponent from '../../../../../components/button/button'
 import './quiz-list-component.css'
 
 const QuizListComponent = props => {
-  const [loader, setLoader] = useState(false)
   const [successModal, setSuccessModal] = useState(false)
   const [modal, setModal] = useState(false)
+
+  const [loader, setLoader] = useState(false)
   const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+
   const [data, setData] = useState(null)
   const [deleteId, setDeleteId] = useState('')
-  const [error, setError] = useState('')
 
   useEffect(() => {
     loadData().then(() => {
