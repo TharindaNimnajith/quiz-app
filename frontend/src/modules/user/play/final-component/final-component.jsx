@@ -1,34 +1,16 @@
-import React, {useState} from 'react'
-import Loader from '../../../../components/loader/loader'
+import React from 'react'
 import './final-component.css'
 
 const FinalComponent = () => {
-  const [loader, setLoader] = useState(false)
-  const [error, setError] = useState('')
-
   return (
-    <div>
-      {
-        loader ? (
-          <Loader/>
-        ) : null
-      }
-      <div>
-        <div>
-          <small>
-            {
-              error ? (
-                <span className='p-3 error'>
-                  {error}
-                </span>
-              ) : null
-            }
-          </small>
-        </div>
-      </div>
-      <div>
-        Play
-      </div>
+    <div className='text-center my-5'>
+      <h1 className='text-uppercase my-5 header-text'>
+        Congratulations!!!
+      </h1>
+      <i className='fa-solid fa-award award-icon my-5'/>
+      <h2 className='my-5'>
+        You have successfully completed all quizzes!
+      </h2>
     </div>
   )
 }

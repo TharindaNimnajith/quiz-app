@@ -42,10 +42,6 @@ const UserManagementComponent = () => {
     await toggle()
   }
 
-  const onView = async () => {
-    console.log('View Student')
-  }
-
   const toggle = async () => {
     setModal(!modal)
   }

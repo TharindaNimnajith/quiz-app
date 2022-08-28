@@ -1,1 +1,10 @@
-/**/
+.award-icon {
+    font-size: 300px;
+    color: #c21313;
+}
+
+.header-text {
+    letter-spacing: 5px;
+    color: #b4b20e;
+    font-weight: 500;
+}
