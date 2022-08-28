@@ -35,6 +35,7 @@ const UserManagementComponent = () => {
   }
 
   const onDelete = async id => {
+    setError('')
     setDeleteId(id)
     await toggle()
   }

@@ -108,13 +108,9 @@ const updateUser = async (req, res) => {
   } = req.params
 
   const {
-    firstName,
-    lastName,
-    email,
-    password,
-    userType,
     level,
-    total
+    total,
+    results
   } = req.body
 
   try {
@@ -124,29 +120,9 @@ const updateUser = async (req, res) => {
     res.status(500).send(error)
   }
 
-  try {
-    existingUser = await UserModel.findOne({
-      email: email
-    })
-  } catch (error) {
-    console.error(error)
-    res.status(500).send(error)
-  }
-
-  if (existingUser && email !== user.email) {
-    res.send({
-      status: 409,
-      message: 'A user with the same email already exists.'
-    })
-  }
-
-  user.firstName = firstName
-  user.lastName = lastName
-  user.email = email
-  user.password = bcrypt.hashSync(password, 10)
-  user.userType = userType
   user.level = level
   user.total = total
+  user.results = results
 
   try {
     await user.save()
@@ -157,7 +133,7 @@ const updateUser = async (req, res) => {
 
   res.send({
     status: 200,
-    message: 'User updated successfully!'
+    message: 'Results submitted successfully!'
   })
 }
 

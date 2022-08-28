@@ -22,6 +22,7 @@ const PlayComponent = props => {
   }
 
   const toggle = async () => {
+    setError('')
     setModal(!modal)
   }
 
@@ -33,7 +34,9 @@ const PlayComponent = props => {
     setError('')
     setLoader(true)
     const data = {
-      //
+      'level': '',
+      'total': 0,
+      'results': []
     }
     axios.put(`${usersApi}users/${appContext.loginData.userId}`, data).then(res => {
       if (res.data.status === 200) {

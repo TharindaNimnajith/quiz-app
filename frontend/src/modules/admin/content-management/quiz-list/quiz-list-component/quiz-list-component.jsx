@@ -46,6 +46,7 @@ const QuizListComponent = props => {
   }
 
   const onDelete = async id => {
+    setError('')
     setDeleteId(id)
     await toggle()
   }
