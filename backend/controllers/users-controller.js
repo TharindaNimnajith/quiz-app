@@ -101,7 +101,6 @@ const addAdmin = async (req, res) => {
 
 const updateUser = async (req, res) => {
   let user
-  let existingUser
 
   const {
     id
@@ -133,7 +132,8 @@ const updateUser = async (req, res) => {
 
   res.send({
     status: 200,
-    message: 'Results submitted successfully!'
+    message: 'Results submitted successfully!',
+    user: user
   })
 }
 

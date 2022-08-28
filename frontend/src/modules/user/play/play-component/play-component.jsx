@@ -2,7 +2,9 @@ import React, {useContext, useState} from 'react'
 import {Input, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import axios from 'axios'
 import {usersApi} from '../../../../config/api.config'
+import {authStoreKey} from '../../../../config/main.config'
 import {AppContext} from '../../../../global/app-context'
+import {setLocalStorageItem} from '../../../../helpers/local-storage.helpers'
 import Loader from '../../../../components/loader/loader'
 import ButtonComponent from '../../../../components/button/button'
 import './play-component.css'
@@ -17,9 +19,10 @@ const PlayComponent = props => {
   const [error, setError] = useState('')
   const [loader, setLoader] = useState(false)
 
-  function isDisabled() {
-    return false
-  }
+  const [submitted, setSubmitted] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+
+  const studentAnswers = new Map([])
 
   const toggle = async () => {
     setError('')
@@ -30,7 +33,18 @@ const PlayComponent = props => {
     setSuccessModal(!successModal)
   }
 
+  const next = async () => {
+    props.history.push('/play')
+  }
+
+  const onChangeValue = async (index, event) => {
+    studentAnswers.set(index, parseInt(event.target.value))
+    if (studentAnswers.size === props.data.questions.length)
+      setDisabled(false)
+  }
+
   const confirmSubmit = async () => {
+    setModal(!modal)
     setError('')
     setLoader(true)
     const data = {
@@ -38,9 +52,12 @@ const PlayComponent = props => {
       'total': 0,
       'results': []
     }
-    axios.put(`${usersApi}users/${appContext.loginData.userId}`, data).then(res => {
+    axios.put(`${usersApi}usersss/${appContext.loginData._id}`, data).then(res => {
       if (res.data.status === 200) {
         setMessage(res.data.message)
+        setSubmitted(true)
+        appContext.login(res.data.user)
+        setLocalStorageItem(authStoreKey, res.data.user)
         toggle()
         toggleSuccessModal()
       } else {
@@ -155,44 +172,50 @@ const PlayComponent = props => {
               <div className='mx-4 mt-2'>
                 <div className='mt-3'>
                   <Input type='radio'
-                         name={index}/>
+                         value={1}
+                         name={index}
+                         disabled={submitted}
+                         onChange={event => onChangeValue(index, event)}/>
                   <label className='mx-2'>
                     1.&nbsp;{item.answer1}
                   </label>
                 </div>
                 <div className='mt-2'>
                   <Input type='radio'
-                         name={index}/>
+                         value={2}
+                         name={index}
+                         disabled={submitted}
+                         onChange={event => onChangeValue(index, event)}/>
                   <label className='mx-2'>
                     2.&nbsp;{item.answer2}
                   </label>
                 </div>
                 <div className='mt-2'>
                   <Input type='radio'
-                         name={index}/>
+                         value={3}
+                         name={index}
+                         disabled={submitted}
+                         onChange={event => onChangeValue(index, event)}/>
                   <label className='mx-2'>
                     3.&nbsp;{item.answer3}
                   </label>
                 </div>
                 <div className='mt-2'>
                   <Input type='radio'
-                         name={index}/>
+                         value={4}
+                         name={index}
+                         disabled={submitted}
+                         onChange={event => onChangeValue(index, event)}/>
                   <label className='mx-2'>
                     4.&nbsp;{item.answer4}
                   </label>
                 </div>
               </div>
               {
-                item.correctAnswer === 5 ? (
+                submitted && (
                   <div className='mx-4 mt-3'>
-                    <label className='text-success'>
-                      Correct!
-                    </label>
-                  </div>
-                ) : (
-                  <div className='mx-4 mt-3'>
-                    <label className='text-danger'>
-                      Incorrect (Answer = {item.correctAnswer})
+                    <label className='text-primary'>
+                      Correct Answer = {item.correctAnswer}
                     </label>
                   </div>
                 )
@@ -202,11 +225,21 @@ const PlayComponent = props => {
         })
       }
       <div className='text-center mt-5 mb-3'>
-        <ButtonComponent btnText='Submit'
-                         isFullWidth={false}
-                         elementStyle='submit-btn'
-                         disabled={isDisabled()}
-                         onClickFn={toggle}/>
+        {
+          submitted ? (
+            <ButtonComponent btnText='Next'
+                             isFullWidth={false}
+                             elementStyle='submit-btn'
+                             disabled={false}
+                             onClickFn={next}/>
+          ) : (
+            <ButtonComponent btnText='Submit'
+                             isFullWidth={false}
+                             elementStyle='submit-btn'
+                             disabled={disabled}
+                             onClickFn={toggle}/>
+          )
+        }
       </div>
     </div>
   )
