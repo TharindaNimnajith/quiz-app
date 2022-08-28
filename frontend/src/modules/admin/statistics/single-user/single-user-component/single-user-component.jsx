@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
-import {Card, CardBody} from 'reactstrap'
+import {Card, CardBody, Table} from 'reactstrap'
 import axios from 'axios'
 import {usersApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
@@ -17,6 +17,7 @@ const SingleUserComponent = props => {
   const [email, setEmail] = useState('')
   const [level, setLevel] = useState('')
   const [total, setTotal] = useState('')
+  const [results, setResults] = useState([])
 
   const {
     id
@@ -37,6 +38,7 @@ const SingleUserComponent = props => {
       setEmail(data.email)
       setLevel(data.level)
       setTotal(data.total)
+      setResults(data.results)
       setLoader(false)
     }).catch(error => {
       setError('An unexpected error occurred. Please try again later.')
@@ -78,8 +80,8 @@ const SingleUserComponent = props => {
                   {
                     error ? (
                       <span className='p-3 error'>
-                    {error}
-                  </span>
+                        {error}
+                      </span>
                     ) : null
                   }
                 </small>
@@ -95,6 +97,57 @@ const SingleUserComponent = props => {
                 <br/>
                 <label className='my-1'>Total: {total}</label>
                 <br/>
+              </div>
+              <div>
+                <h4 className='text-center my-3'>
+                  Results
+                </h4>
+                <Table bordered>
+                  <thead>
+                  <tr className='text-center'>
+                    <th>Level</th>
+                    <th>Question</th>
+                    <th>Student Answer</th>
+                    <th>Correct Answer</th>
+                    <th>Is Correct</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {
+                    results && results.map(item => {
+                      return (
+                        <tr key={item._id}>
+                          <td className='text-center'>
+                            {item.quizLevel}
+                          </td>
+                          <td>
+                            {item.question}
+                          </td>
+                          <td>
+                            {item.studentAnswer}
+                          </td>
+                          <td>
+                            {item.correctAnswer}
+                          </td>
+                          <td className='text-center'>
+                            {
+                              item.studentAnswer === item.correctAnswer ? (
+                                <span className='text-success'>
+                                  Correct
+                                </span>
+                              ) : (
+                                <span className='text-danger'>
+                                  Incorrect
+                                </span>
+                              )
+                            }
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                  </tbody>
+                </Table>
               </div>
             </CardBody>
           </Card>

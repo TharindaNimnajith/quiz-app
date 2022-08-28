@@ -19,8 +19,8 @@ const PlayComponent = () => {
             {
               error ? (
                 <span className='p-3 error'>
-                    {error}
-                  </span>
+                  {error}
+                </span>
               ) : null
             }
           </small>

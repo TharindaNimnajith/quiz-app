@@ -93,8 +93,8 @@ const LoginForm = props => {
             <h1 className='text-white font-size-20 text-uppercase'>
               <i className='login-icon fas fa-users mt-2'/>
               <span className='ms-3'>
-                  Login
-                </span>
+                Login
+              </span>
             </h1>
           </div>
         </div>
