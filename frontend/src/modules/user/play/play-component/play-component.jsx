@@ -22,7 +22,12 @@ const PlayComponent = props => {
                     <label>{index + 1}.&nbsp;</label>
                   )
                 }
-                <label>{item.question}</label>
+                <label>
+                  {item.question}
+                </label>
+                <span className='error'>
+                  &nbsp;*
+                </span>
               </div>
               {
                 item.hints && (
@@ -61,9 +66,21 @@ const PlayComponent = props => {
                   </label>
                 </div>
               </div>
-              <div>
-
-              </div>
+              {
+                item.correctAnswer === 5 ? (
+                  <div className='mx-4 mt-3'>
+                    <label className='text-success'>
+                      Correct!
+                    </label>
+                  </div>
+                ) : (
+                  <div className='mx-4 mt-3'>
+                    <label className='text-danger'>
+                      Incorrect (Answer = {item.correctAnswer})
+                    </label>
+                  </div>
+                )
+              }
             </div>
           )
         })

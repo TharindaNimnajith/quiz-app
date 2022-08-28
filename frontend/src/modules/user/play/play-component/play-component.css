@@ -3,3 +3,7 @@
     padding-left: 7%;
     padding-right: 7%;
 }
+
+.error {
+    color: red;
+}
