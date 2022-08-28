@@ -23,7 +23,7 @@ const Play = props => {
   const loadData = async () => {
     setLoader(true)
     if (appContext.loginData.level !== 'Done') {
-      axios.get(`${quizzesApi}quizzes/${appContext.loginData.level}`).then(res => {
+      axios.get(`${quizzesApi}quizzes/level/${appContext.loginData.level}`).then(res => {
         setData(res.data.quiz)
         setLoader(false)
       }).catch(error => {

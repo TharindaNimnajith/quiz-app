@@ -87,6 +87,28 @@ const getQuiz = async (req, res) => {
   })
 }
 
+const getQuizByLevel = async (req, res) => {
+  let quiz
+
+  const {
+    level
+  } = req.params
+
+  try {
+    quiz = await QuizModel.findOne({
+      quizLevel: level
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).send(error)
+  }
+
+  res.send({
+    status: 200,
+    quiz: quiz
+  })
+}
+
 const getQuizList = async (req, res) => {
   let quizList
 
@@ -106,4 +128,5 @@ const getQuizList = async (req, res) => {
 exports.addQuiz = addQuiz
 exports.deleteQuiz = deleteQuiz
 exports.getQuiz = getQuiz
+exports.getQuizByLevel = getQuizByLevel
 exports.getQuizList = getQuizList
