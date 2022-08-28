@@ -14,6 +14,13 @@ const quizLevels = [
   '3B'
 ]
 
+const answers = [
+  1,
+  2,
+  3,
+  4
+]
+
 const QuizzesSchema = new Schema({
   quizId: {
     type: Number,
@@ -79,6 +86,7 @@ const QuizzesSchema = new Schema({
     },
     correctAnswer: {
       type: Number,
+      enum: answers,
       required: true,
       unique: false,
       trim: true

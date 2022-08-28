@@ -6,6 +6,5 @@
         <language minSize="56" name="JavaScript" />
       </Languages>
     </inspection_tool>
-    <inspection_tool class="JSUnresolvedFunction" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
   </profile>
 </component>

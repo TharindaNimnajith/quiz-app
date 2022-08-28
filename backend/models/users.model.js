@@ -20,6 +20,23 @@ const levels = [
   'Done'
 ]
 
+const quizLevels = [
+  'General',
+  '1A',
+  '1B',
+  '2A',
+  '2B',
+  '3A',
+  '3B'
+]
+
+const answers = [
+  1,
+  2,
+  3,
+  4
+]
+
 const UsersSchema = new Schema({
   userId: {
     type: Number,
@@ -71,7 +88,36 @@ const UsersSchema = new Schema({
     required: false,
     unique: false,
     trim: true
-  }
+  },
+  results: [{
+    quizLevel: {
+      type: String,
+      enum: quizLevels,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    question: {
+      type: String,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    studentAnswer: {
+      type: Number,
+      enum: answers,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    correctAnswer: {
+      type: Number,
+      enum: answers,
+      required: true,
+      unique: false,
+      trim: true
+    }
+  }]
 }, {
   timestamps: true,
   collection: 'Users'
