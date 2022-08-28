@@ -1,1 +1,5 @@
-/**/
+.submit-btn {
+    min-width: max-content;
+    padding-left: 7%;
+    padding-right: 7%;
+}

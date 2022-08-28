@@ -21,8 +21,8 @@ const Play = props => {
   }, [])
 
   const loadData = async () => {
-    setLoader(true)
     if (appContext.loginData.level !== 'Done') {
+      setLoader(true)
       axios.get(`${quizzesApi}quizzes/level/${appContext.loginData.level}`).then(res => {
         setData(res.data.quiz)
         setLoader(false)
@@ -62,7 +62,7 @@ const Play = props => {
           <div className='container'>
             <FinalComponent/>
           </div>
-        ) : (
+        ) : data && (
           <div className='container play-page'>
             <PlayComponent history={props.history}
                            data={data}/>

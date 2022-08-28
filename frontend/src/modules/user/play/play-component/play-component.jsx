@@ -36,30 +36,33 @@ const PlayComponent = props => {
                   <Input type='radio'
                          name={index}/>
                   <label className='mx-2'>
-                    {item.answer1}
+                    1.&nbsp;{item.answer1}
                   </label>
                 </div>
                 <div className='mt-2'>
                   <Input type='radio'
                          name={index}/>
                   <label className='mx-2'>
-                    {item.answer2}
+                    2.&nbsp;{item.answer2}
                   </label>
                 </div>
                 <div className='mt-2'>
                   <Input type='radio'
                          name={index}/>
                   <label className='mx-2'>
-                    {item.answer3}
+                    3.&nbsp;{item.answer3}
                   </label>
                 </div>
                 <div className='mt-2'>
                   <Input type='radio'
                          name={index}/>
                   <label className='mx-2'>
-                    {item.answer4}
+                    4.&nbsp;{item.answer4}
                   </label>
                 </div>
+              </div>
+              <div>
+
               </div>
             </div>
           )
