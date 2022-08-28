@@ -1,14 +1,8 @@
-.quiz-wrapper {
+.user-wrapper {
     min-width: max-content;
     width: 40%;
 }
 
-.quiz-header {
+.user-header {
     background-color: #626ed4;
-}
-
-.submit-btn {
-    min-width: max-content;
-    padding-left: 7%;
-    padding-right: 7%;
 }

@@ -52,7 +52,7 @@ const SingleUserComponent = props => {
   }
 
   return (
-    <div className='quiz-wrapper'>
+    <div className='user-wrapper'>
       {
         loader ? (
           <Loader/>
@@ -67,7 +67,7 @@ const SingleUserComponent = props => {
         </div>
         <div>
           <Card className='overflow-hidden'>
-            <div className='quiz-header'>
+            <div className='user-header'>
               <div className='text-primary text-center p-4'>
                 <h1 className='text-white font-size-20 text-uppercase'>
                   STUDENT - {userId}

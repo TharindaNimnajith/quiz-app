@@ -2,10 +2,6 @@
     color: red;
 }
 
-.edit {
-    color: darkgreen;
-}
-
 .delete {
     color: orangered;
 }
@@ -13,12 +9,6 @@
 .yes-button {
     background-color: darkred !important;
     border: darkred !important;
-    width: 80px;
-}
-
-.yes-button-edit {
-    background-color: green !important;
-    border: green !important;
     width: 80px;
 }
 

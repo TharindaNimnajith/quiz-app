@@ -1,5 +1,5 @@
-import img1 from '../assets/images/1.jpg'
-import img2 from '../assets/images/2.jpg'
+import img1 from '../assets/1.jpg'
+import img2 from '../assets/2.jpg'
 
 export const carousel1 = [
   {

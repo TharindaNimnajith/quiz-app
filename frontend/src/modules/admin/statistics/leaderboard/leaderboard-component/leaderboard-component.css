@@ -1,17 +1,3 @@
-.text {
-    color: white;
-    font-size: xx-large;
-}
-
-.text h3 {
-    color: white;
-    font-size: xxx-large;
-}
-
-.to-back {
-    z-index: -1;
-}
-
 .view {
     color: darkblue;
 }
