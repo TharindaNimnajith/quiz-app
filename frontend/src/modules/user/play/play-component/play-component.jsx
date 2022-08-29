@@ -73,7 +73,7 @@ const PlayComponent = () => {
     setError('')
     setLoader(true)
     let score = 0
-    let results = []
+    let results = appContext.loginData.results
     for (let i = 0; i < studentAnswers.size; i++) {
       results = [...results, {
         'quizLevel': data?.quizLevel,

@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react'
 import {
   Card,
   CardBody,
-  CardDeck,
   CardFooter,
+  CardGroup,
   CardText,
   CardTitle,
   Modal,
@@ -153,14 +153,14 @@ const QuizListComponent = props => {
           }
         </small>
       </div>
+      <div className='my-3 mx-4'>
+        <ButtonComponent btnText='New Quiz'
+                         isFullWidth={false}
+                         disabled={false}
+                         onClickFn={onNewQuiz}/>
+      </div>
       <div>
-        <div className='my-3 mx-4'>
-          <ButtonComponent btnText='New Quiz'
-                           isFullWidth={false}
-                           disabled={false}
-                           onClickFn={onNewQuiz}/>
-        </div>
-        <CardDeck>
+        <CardGroup>
           {
             data && data.map(item => {
               return (
@@ -198,7 +198,7 @@ const QuizListComponent = props => {
               )
             })
           }
-        </CardDeck>
+        </CardGroup>
       </div>
     </div>
   )
