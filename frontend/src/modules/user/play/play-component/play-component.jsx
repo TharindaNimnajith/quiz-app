@@ -1,16 +1,19 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {Input, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import axios from 'axios'
-import {usersApi} from '../../../../config/api.config'
+import {quizzesApi, usersApi} from '../../../../config/api.config'
 import {authStoreKey} from '../../../../config/main.config'
 import {AppContext} from '../../../../global/app-context'
 import {setLocalStorageItem} from '../../../../helpers/local-storage.helpers'
 import Loader from '../../../../components/loader/loader'
 import ButtonComponent from '../../../../components/button/button'
+import FinalComponent from '../final-component/final-component'
 import './play-component.css'
 
-const PlayComponent = props => {
+const PlayComponent = () => {
   const appContext = useContext(AppContext)
+
+  const [data, setData] = useState('')
 
   const [successModal, setSuccessModal] = useState(false)
   const [modal, setModal] = useState(false)
@@ -21,8 +24,30 @@ const PlayComponent = props => {
 
   const [submitted, setSubmitted] = useState(false)
   const [disabled, setDisabled] = useState(true)
+  const [done, setDone] = useState(false)
 
   const studentAnswers = new Map([])
+
+  useEffect(() => {
+    loadData().then(() => {
+    })
+  }, [])
+
+  const loadData = async () => {
+    if (appContext.loginData.level !== 'Done') {
+      setLoader(true)
+      axios.get(`${quizzesApi}quizzes/level/${appContext.loginData.level}`).then(res => {
+        setData(res.data.quiz)
+        setLoader(false)
+      }).catch(error => {
+        setError('An unexpected error occurred. Please try again later.')
+        setLoader(false)
+        console.error(error)
+      })
+    } else {
+      setDone(true)
+    }
+  }
 
   const toggle = async () => {
     setError('')
@@ -39,7 +64,7 @@ const PlayComponent = props => {
 
   const onChangeValue = async (index, event) => {
     studentAnswers.set(index, parseInt(event.target.value))
-    if (studentAnswers.size === props.data.questions.length)
+    if (studentAnswers.size === data.questions.length)
       setDisabled(false)
   }
 
@@ -47,12 +72,53 @@ const PlayComponent = props => {
     setModal(!modal)
     setError('')
     setLoader(true)
-    const data = {
-      'level': 'Done',
-      'total': 70,
-      'results': []
+    let score = 0
+    let results = []
+    for (let i = 0; i < studentAnswers.size; i++) {
+      results = [...results, {
+        'quizLevel': data?.quizLevel,
+        'question': data?.questions[i].question,
+        'studentAnswer': studentAnswers.get(i),
+        'correctAnswer': data?.questions[i].correctAnswer
+      }]
+      if (data?.questions[i].correctAnswer === studentAnswers.get(i)) {
+        score++
+      }
     }
-    axios.put(`${usersApi}users/${appContext.loginData._id}`, data).then(res => {
+    let level = 'General'
+    if (appContext.loginData.level === 'General') {
+      if (score >= 6) {
+        level = '1B'
+      } else {
+        level = '1A'
+      }
+    } else if (appContext.loginData.level === '1A') {
+      level = '1B'
+    } else if (appContext.loginData.level === '1B') {
+      if (score >= 6) {
+        level = '2B'
+      } else {
+        level = '2A'
+      }
+    } else if (appContext.loginData.level === '2A') {
+      level = '2B'
+    } else if (appContext.loginData.level === '2B') {
+      if (score >= 6) {
+        level = '3B'
+      } else {
+        level = '3A'
+      }
+    } else if (appContext.loginData.level === '3A') {
+      level = '3B'
+    } else if (appContext.loginData.level === '3B') {
+      level = 'Done'
+    }
+    const payload = {
+      'level': level,
+      'total': appContext.loginData.total + score,
+      'results': results
+    }
+    axios.put(`${usersApi}users/${appContext.loginData._id}`, payload).then(res => {
       if (res.data.status === 200) {
         setMessage(res.data.message)
         setSubmitted(true)
@@ -139,108 +205,116 @@ const PlayComponent = props => {
           </small>
         </div>
       </div>
-      <h1 className='text-center mt-4'>
-        {props.data.quizLevel}
-      </h1>
       {
-        props.data.questions && props.data.questions.map((item, index) => {
-          return (
-            <div className='mt-5'
-                 key={item._id}>
-              <div>
-                {
-                  index < 9 ? (
-                    <label>0{index + 1}.&nbsp;</label>
-                  ) : (
-                    <label>{index + 1}.&nbsp;</label>
-                  )
-                }
-                <label>
-                  {item.question}
-                </label>
-                <span className='error'>
+        done ? (
+          <FinalComponent/>
+        ) : (
+          <div>
+            <h1 className='text-center mt-4'>
+              {data.quizLevel}
+            </h1>
+            {
+              data.questions && data.questions.map((item, index) => {
+                return (
+                  <div className='mt-5'
+                       key={item._id}>
+                    <div>
+                      {
+                        index < 9 ? (
+                          <label>0{index + 1}.&nbsp;</label>
+                        ) : (
+                          <label>{index + 1}.&nbsp;</label>
+                        )
+                      }
+                      <label>
+                        {item.question}
+                      </label>
+                      <span className='error'>
                   &nbsp;*
                 </span>
-              </div>
-              {
-                item.hints && (
-                  <div className='mx-4 mt-1'>
-                    <label>Hint: {item.hints}</label>
+                    </div>
+                    {
+                      item.hints && (
+                        <div className='mx-4 mt-1'>
+                          <label>Hint: {item.hints}</label>
+                        </div>
+                      )
+                    }
+                    <div className='mx-4 mt-2'>
+                      <div className='mt-3'>
+                        <Input type='radio'
+                               value={1}
+                               name={index}
+                               disabled={submitted}
+                               onChange={event => onChangeValue(index, event)}/>
+                        <label className='mx-2'>
+                          1)&nbsp;{item.answer1}
+                        </label>
+                      </div>
+                      <div className='mt-2'>
+                        <Input type='radio'
+                               value={2}
+                               name={index}
+                               disabled={submitted}
+                               onChange={event => onChangeValue(index, event)}/>
+                        <label className='mx-2'>
+                          2)&nbsp;{item.answer2}
+                        </label>
+                      </div>
+                      <div className='mt-2'>
+                        <Input type='radio'
+                               value={3}
+                               name={index}
+                               disabled={submitted}
+                               onChange={event => onChangeValue(index, event)}/>
+                        <label className='mx-2'>
+                          3)&nbsp;{item.answer3}
+                        </label>
+                      </div>
+                      <div className='mt-2'>
+                        <Input type='radio'
+                               value={4}
+                               name={index}
+                               disabled={submitted}
+                               onChange={event => onChangeValue(index, event)}/>
+                        <label className='mx-2'>
+                          4)&nbsp;{item.answer4}
+                        </label>
+                      </div>
+                    </div>
+                    {
+                      submitted && (
+                        <div className='mx-4 mt-3'>
+                          <label className='text-primary'>
+                            Correct Answer = {item.correctAnswer}
+                          </label>
+                        </div>
+                      )
+                    }
                   </div>
                 )
-              }
-              <div className='mx-4 mt-2'>
-                <div className='mt-3'>
-                  <Input type='radio'
-                         value={1}
-                         name={index}
-                         disabled={submitted}
-                         onChange={event => onChangeValue(index, event)}/>
-                  <label className='mx-2'>
-                    1)&nbsp;{item.answer1}
-                  </label>
-                </div>
-                <div className='mt-2'>
-                  <Input type='radio'
-                         value={2}
-                         name={index}
-                         disabled={submitted}
-                         onChange={event => onChangeValue(index, event)}/>
-                  <label className='mx-2'>
-                    2)&nbsp;{item.answer2}
-                  </label>
-                </div>
-                <div className='mt-2'>
-                  <Input type='radio'
-                         value={3}
-                         name={index}
-                         disabled={submitted}
-                         onChange={event => onChangeValue(index, event)}/>
-                  <label className='mx-2'>
-                    3)&nbsp;{item.answer3}
-                  </label>
-                </div>
-                <div className='mt-2'>
-                  <Input type='radio'
-                         value={4}
-                         name={index}
-                         disabled={submitted}
-                         onChange={event => onChangeValue(index, event)}/>
-                  <label className='mx-2'>
-                    4)&nbsp;{item.answer4}
-                  </label>
-                </div>
-              </div>
+              })
+            }
+            <div className='text-center mt-5 mb-3'>
               {
-                submitted && (
-                  <div className='mx-4 mt-3'>
-                    <label className='text-primary'>
-                      Correct Answer = {item.correctAnswer}
-                    </label>
-                  </div>
+                submitted ? (
+                  <ButtonComponent btnText='Next'
+                                   isFullWidth={false}
+                                   elementStyle='submit-btn'
+                                   disabled={false}
+                                   onClickFn={next}/>
+                ) : (
+                  <ButtonComponent btnText='Submit'
+                                   isFullWidth={false}
+                                   elementStyle='submit-btn'
+                                   disabled={disabled}
+                                   onClickFn={toggle}/>
                 )
               }
             </div>
-          )
-        })
+          </div>
+        )
       }
-      <div className='text-center mt-5 mb-3'>
-        {
-          submitted ? (
-            <ButtonComponent btnText='Next'
-                             isFullWidth={false}
-                             elementStyle='submit-btn'
-                             disabled={false}
-                             onClickFn={next}/>
-          ) : (
-            <ButtonComponent btnText='Submit'
-                             isFullWidth={false}
-                             elementStyle='submit-btn'
-                             disabled={disabled}
-                             onClickFn={toggle}/>
-          )
-        }
-      </div>
     </div>
   )
 }
