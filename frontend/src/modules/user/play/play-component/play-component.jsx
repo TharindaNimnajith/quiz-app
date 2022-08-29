@@ -68,11 +68,44 @@ const PlayComponent = () => {
       setDisabled(false)
   }
 
+  function getLevel(score) {
+    if (appContext.loginData.level === 'General') {
+      if (score >= 6) {
+        return '1B'
+      } else {
+        return '1A'
+      }
+    } else if (appContext.loginData.level === '1A') {
+      return '1B'
+    } else if (appContext.loginData.level === '1B') {
+      if (score >= 6) {
+        return '2B'
+      } else {
+        return '2A'
+      }
+    } else if (appContext.loginData.level === '2A') {
+      return '2B'
+    } else if (appContext.loginData.level === '2B') {
+      if (score >= 6) {
+        return '3B'
+      } else {
+        return '3A'
+      }
+    } else if (appContext.loginData.level === '3A') {
+      return '3B'
+    } else if (appContext.loginData.level === '3B') {
+      return 'Done'
+    } else {
+      return 'General'
+    }
+  }
+
   const confirmSubmit = async () => {
     setModal(!modal)
     setError('')
     setLoader(true)
-    let score = 0
+    // todo start
+    let score = 6
     let results = appContext.loginData.results
     for (let i = 0; i < studentAnswers.size; i++) {
       results = [...results, {
@@ -85,36 +118,9 @@ const PlayComponent = () => {
         score++
       }
     }
-    let level = 'General'
-    if (appContext.loginData.level === 'General') {
-      if (score >= 6) {
-        level = '1B'
-      } else {
-        level = '1A'
-      }
-    } else if (appContext.loginData.level === '1A') {
-      level = '1B'
-    } else if (appContext.loginData.level === '1B') {
-      if (score >= 6) {
-        level = '2B'
-      } else {
-        level = '2A'
-      }
-    } else if (appContext.loginData.level === '2A') {
-      level = '2B'
-    } else if (appContext.loginData.level === '2B') {
-      if (score >= 6) {
-        level = '3B'
-      } else {
-        level = '3A'
-      }
-    } else if (appContext.loginData.level === '3A') {
-      level = '3B'
-    } else if (appContext.loginData.level === '3B') {
-      level = 'Done'
-    }
+    // todo end
     const payload = {
-      'level': level,
+      'level': getLevel(score),
       'total': appContext.loginData.total + score,
       'results': results
     }
