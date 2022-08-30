@@ -13,7 +13,10 @@ import './play-component.css'
 const PlayComponent = () => {
   const appContext = useContext(AppContext)
 
+  const studentAnswers = new Map([])
+
   const [data, setData] = useState('')
+  const [map, setMap] = useState(new Map([]))
 
   const [successModal, setSuccessModal] = useState(false)
   const [modal, setModal] = useState(false)
@@ -25,8 +28,6 @@ const PlayComponent = () => {
   const [submitted, setSubmitted] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [done, setDone] = useState(false)
-
-  const studentAnswers = new Map([])
 
   useEffect(() => {
     loadData().then(() => {
@@ -64,8 +65,10 @@ const PlayComponent = () => {
 
   const onChangeValue = async (index, event) => {
     studentAnswers.set(index, parseInt(event.target.value))
-    if (studentAnswers.size === data.questions.length)
+    if (studentAnswers.size === data.questions.length) {
       setDisabled(false)
+      setMap(studentAnswers)
+    }
   }
 
   function getLevel(score) {
@@ -104,25 +107,23 @@ const PlayComponent = () => {
     setModal(!modal)
     setError('')
     setLoader(true)
-    // todo start
-    let score = 6
-    let results = appContext.loginData.results
-    for (let i = 0; i < studentAnswers.size; i++) {
-      results = [...results, {
-        'quizLevel': data?.quizLevel,
-        'question': data?.questions[i].question,
-        'studentAnswer': studentAnswers.get(i),
-        'correctAnswer': data?.questions[i].correctAnswer
-      }]
-      if (data?.questions[i].correctAnswer === studentAnswers.get(i)) {
-        score++
+    let score = 0
+    let results = []
+    for (let i = 0; i < data.questions.length; i++) {
+      results.push({
+        'quizLevel': data.quizLevel,
+        'question': data.questions[i].question,
+        'studentAnswer': map.get(i),
+        'correctAnswer': data.questions[i].correctAnswer
+      })
+      if (data.questions[i].correctAnswer === map.get(i)) {
+        score = score + 1
       }
     }
-    // todo end
     const payload = {
       'level': getLevel(score),
       'total': appContext.loginData.total + score,
-      'results': results
+      'results': appContext.loginData.results.concat(results)
     }
     axios.put(`${usersApi}users/${appContext.loginData._id}`, payload).then(res => {
       if (res.data.status === 200) {
@@ -289,10 +290,16 @@ const PlayComponent = () => {
                       </div>
                     </div>
                     {
-                      submitted && (
+                      submitted && map && item.correctAnswer === map.get(index) ? (
                         <div className='mx-4 mt-3'>
-                          <label className='text-primary'>
-                            Correct Answer = {item.correctAnswer}
+                          <label className='text-success'>
+                            Correct!
+                          </label>
+                        </div>
+                      ) : submitted && map && (
+                        <div className='mx-4 mt-3'>
+                          <label className='text-danger'>
+                            Incorrect (Expected Answer = {item.correctAnswer})
                           </label>
                         </div>
                       )
