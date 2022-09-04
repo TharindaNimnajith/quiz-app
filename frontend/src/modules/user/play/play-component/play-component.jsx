@@ -81,7 +81,7 @@ const PlayComponent = () => {
     } else if (appContext.loginData.level === '1A') {
       return '1B'
     } else if (appContext.loginData.level === '1B') {
-      if (score >= 6) {
+      if (score >= 3) {
         return '2B'
       } else {
         return '2A'
@@ -89,7 +89,7 @@ const PlayComponent = () => {
     } else if (appContext.loginData.level === '2A') {
       return '2B'
     } else if (appContext.loginData.level === '2B') {
-      if (score >= 6) {
+      if (score >= 3) {
         return '3B'
       } else {
         return '3A'
@@ -218,7 +218,7 @@ const PlayComponent = () => {
         ) : (
           <div>
             <h1 className='text-center mt-4'>
-              {data.quizLevel}
+              {data.quizTitle} - {data.quizLevel}
             </h1>
             {
               data.questions && data.questions.map((item, index) => {
@@ -286,6 +286,16 @@ const PlayComponent = () => {
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
                           4)&nbsp;{item.answer4}
+                        </label>
+                      </div>
+                      <div className='mt-2'>
+                        <Input type='radio'
+                               value={5}
+                               name={index}
+                               disabled={submitted}
+                               onChange={event => onChangeValue(index, event)}/>
+                        <label className='mx-2'>
+                          5)&nbsp;{item.answer5}
                         </label>
                       </div>
                     </div>

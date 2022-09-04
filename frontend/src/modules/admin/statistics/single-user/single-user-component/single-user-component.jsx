@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {Card, CardBody, Table} from 'reactstrap'
 import axios from 'axios'
+import {CSVLink} from 'react-csv'
 import {usersApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
 import ButtonComponent from '../../../../../components/button/button'
@@ -17,7 +18,9 @@ const SingleUserComponent = props => {
   const [email, setEmail] = useState('')
   const [level, setLevel] = useState('')
   const [total, setTotal] = useState('')
+
   const [results, setResults] = useState([])
+  const [csvData, setCsvData] = useState([])
 
   const {
     id
@@ -39,6 +42,16 @@ const SingleUserComponent = props => {
       setLevel(data.level)
       setTotal(data.total)
       setResults(data.results)
+      for (let item of data.results) {
+        csvData.push({
+          level: data.level,
+          question: item.question,
+          studentAnswer: item.studentAnswer,
+          correctAnswer: item.correctAnswer,
+          isCorrect: item.studentAnswer === item.correctAnswer ? 'Correct' : 'Incorrect'
+        })
+      }
+      setCsvData(csvData)
       setLoader(false)
     }).catch(error => {
       setError('An unexpected error occurred. Please try again later.')
@@ -49,6 +62,35 @@ const SingleUserComponent = props => {
 
   const onClick = async () => {
     props.history.push('/leaderboard')
+  }
+
+  const headers = [
+    {
+      label: 'Level',
+      key: 'level'
+    },
+    {
+      label: 'Question',
+      key: 'question'
+    },
+    {
+      label: 'Student Answer',
+      key: 'studentAnswer'
+    },
+    {
+      label: 'Correct Answer',
+      key: 'correctAnswer'
+    },
+    {
+      label: 'Is Correct',
+      key: 'isCorrect'
+    }
+  ]
+
+  const csvReport = {
+    data: csvData,
+    headers: headers,
+    filename: userId + '_' + firstName + '_' + lastName + '.csv'
   }
 
   return (
@@ -102,6 +144,11 @@ const SingleUserComponent = props => {
                 <h4 className='text-center my-3'>
                   Results
                 </h4>
+                <div className='my-3'>
+                  <CSVLink {...csvReport}>
+                    Export to CSV
+                  </CSVLink>
+                </div>
                 <Table bordered>
                   <thead>
                   <tr className='text-center'>
@@ -123,10 +170,10 @@ const SingleUserComponent = props => {
                           <td>
                             {item.question}
                           </td>
-                          <td>
+                          <td className='text-center'>
                             {item.studentAnswer}
                           </td>
-                          <td>
+                          <td className='text-center'>
                             {item.correctAnswer}
                           </td>
                           <td className='text-center'>

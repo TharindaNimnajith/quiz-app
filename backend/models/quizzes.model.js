@@ -1,25 +1,9 @@
 const mongoose = require('mongoose')
 const autoIncrement = require('mongoose-auto-increment')
 const uniqueValidator = require('mongoose-unique-validator')
+const {quizLevels, answers} = require("../config/enums.config");
 
 const Schema = mongoose.Schema
-
-const quizLevels = [
-  'General',
-  '1A',
-  '1B',
-  '2A',
-  '2B',
-  '3A',
-  '3B'
-]
-
-const answers = [
-  1,
-  2,
-  3,
-  4
-]
 
 const QuizzesSchema = new Schema({
   quizId: {
@@ -79,6 +63,12 @@ const QuizzesSchema = new Schema({
       trim: true
     },
     answer4: {
+      type: String,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    answer5: {
       type: String,
       required: true,
       unique: false,
