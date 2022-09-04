@@ -32,7 +32,15 @@ const answers = [
   5
 ]
 
+const lessons = [
+  1,
+  2,
+  3,
+  4
+]
+
 exports.userTypes = userTypes
 exports.userLevels = userLevels
 exports.quizLevels = quizLevels
 exports.answers = answers
+exports.lessons = lessons

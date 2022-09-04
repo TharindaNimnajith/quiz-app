@@ -218,7 +218,7 @@ const PlayComponent = () => {
         ) : (
           <div>
             <h1 className='text-center mt-4'>
-              {data.quizTitle} - {data.quizLevel}
+              {data.quizTitle}
             </h1>
             {
               data.questions && data.questions.map((item, index) => {

@@ -16,6 +16,7 @@ const SingleUserComponent = props => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
+  const [lesson, setLesson] = useState('')
   const [level, setLevel] = useState('')
   const [total, setTotal] = useState('')
 
@@ -39,11 +40,13 @@ const SingleUserComponent = props => {
       setFirstName(data.firstName)
       setLastName(data.lastName)
       setEmail(data.email)
+      setLesson(data.lesson)
       setLevel(data.level)
       setTotal(data.total)
       setResults(data.results)
       for (let item of data.results) {
         csvData.push({
+          lesson: item.lesson,
           level: item.quizLevel,
           question: item.question,
           studentAnswer: item.studentAnswer,
@@ -64,28 +67,25 @@ const SingleUserComponent = props => {
     props.history.push('/leaderboard')
   }
 
-  const headers = [
-    {
-      label: 'Level',
-      key: 'level'
-    },
-    {
-      label: 'Question',
-      key: 'question'
-    },
-    {
-      label: 'Student Answer',
-      key: 'studentAnswer'
-    },
-    {
-      label: 'Correct Answer',
-      key: 'correctAnswer'
-    },
-    {
-      label: 'Is Correct',
-      key: 'isCorrect'
-    }
-  ]
+  const headers = [{
+    label: 'Lesson',
+    key: 'lesson'
+  }, {
+    label: 'Level',
+    key: 'level'
+  }, {
+    label: 'Question',
+    key: 'question'
+  }, {
+    label: 'Student Answer',
+    key: 'studentAnswer'
+  }, {
+    label: 'Correct Answer',
+    key: 'correctAnswer'
+  }, {
+    label: 'Is Correct',
+    key: 'isCorrect'
+  }]
 
   const csvReport = {
     data: csvData,
@@ -135,6 +135,8 @@ const SingleUserComponent = props => {
                 <br/>
                 <label className='my-1'>Email: {email}</label>
                 <br/>
+                <label className='my-1'>Lesson: {lesson}</label>
+                <br/>
                 <label className='my-1'>Level: {level}</label>
                 <br/>
                 <label className='my-1'>Total: {total}</label>
@@ -152,6 +154,7 @@ const SingleUserComponent = props => {
                 <Table bordered>
                   <thead>
                   <tr className='text-center'>
+                    <th>Lesson</th>
                     <th>Level</th>
                     <th>Question</th>
                     <th>Student Answer</th>
@@ -164,6 +167,9 @@ const SingleUserComponent = props => {
                     results && results.map(item => {
                       return (
                         <tr key={item._id}>
+                          <td className='text-center'>
+                            {lesson}
+                          </td>
                           <td className='text-center'>
                             {item.quizLevel}
                           </td>

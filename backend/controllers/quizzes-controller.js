@@ -5,7 +5,7 @@ const addQuiz = async (req, res) => {
 
   let {
     quizTitle,
-    quizDescription,
+    lesson,
     quizLevel,
     questions
   } = req.body
@@ -28,7 +28,7 @@ const addQuiz = async (req, res) => {
 
   const newQuiz = new QuizModel({
     quizTitle,
-    quizDescription,
+    lesson,
     quizLevel,
     questions
   })

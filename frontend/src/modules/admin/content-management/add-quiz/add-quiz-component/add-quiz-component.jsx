@@ -6,7 +6,7 @@ import {Card, CardBody, Label, Modal, ModalBody, ModalFooter, ModalHeader} from 
 import {EditorState} from 'draft-js'
 import {Editor} from 'react-draft-wysiwyg'
 import {quizzesApi} from '../../../../../config/api.config'
-import {isEmpty, isValidCorrectAnswer, isValidQuizLevel} from '../../../../../helpers/common.helpers'
+import {isEmpty, isValidCorrectAnswer, isValidLesson, isValidQuizLevel} from '../../../../../helpers/common.helpers'
 import Loader from '../../../../../components/loader/loader'
 import ButtonComponent from '../../../../../components/button/button'
 import TextField from '../../../../../components/text-field/text-field'
@@ -15,18 +15,20 @@ import './add-quiz-component.css'
 const AddQuizComponent = props => {
   const [newQuestionModal, setNewQuestionModal] = useState(false)
   const [successModal, setSuccessModal] = useState(false)
+
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [loader, setLoader] = useState(false)
 
   const helperQuizTitle = 'Please enter a title for the quiz.'
-  const helperQuizDescription = 'Please enter a description about the quiz.'
+  const helperLesson = 'Please enter the lesson (1/2/3/4).'
   const helperQuizLevel = 'Please enter the level (General/1A/1B/2A/2B/3A/3B).'
   const helperCorrectAnswer = 'Please enter the correct answer (1/2/3/4/5).'
 
   const [quizTitle, setQuizTitle] = useState('')
-  const [quizDescription, setQuizDescription] = useState('')
+  const [lesson, setLesson] = useState('')
   const [quizLevel, setQuizLevel] = useState('')
+
   const [question, setQuestion] = useState(EditorState.createEmpty())
   const [hints, setHints] = useState(EditorState.createEmpty())
   const [answer1, setAnswer1] = useState(EditorState.createEmpty())
@@ -35,15 +37,16 @@ const AddQuizComponent = props => {
   const [answer4, setAnswer4] = useState(EditorState.createEmpty())
   const [answer5, setAnswer5] = useState(EditorState.createEmpty())
   const [correctAnswer, setCorrectAnswer] = useState('')
+
   const [questions, setQuestions] = useState([])
 
   const [errorQuizTitle, setErrorQuizTitle] = useState('')
-  const [errorQuizDescription, setErrorQuizDescription] = useState('')
+  const [errorLesson, setErrorLesson] = useState('')
   const [errorQuizLevel, setErrorQuizLevel] = useState('')
   const [errorCorrectAnswer, setErrorCorrectAnswer] = useState('')
 
   const [quizTitleValid, setQuizTitleValid] = useState(false)
-  const [quizDescriptionValid, setQuizDescriptionValid] = useState(false)
+  const [lessonValid, setLessonValid] = useState(false)
   const [quizLevelValid, setQuizLevelValid] = useState(false)
   const [correctAnswerValid, setCorrectAnswerValid] = useState(false)
 
@@ -57,13 +60,13 @@ const AddQuizComponent = props => {
     }
   }
 
-  const onChangeQuizDescription = async event => {
-    setQuizDescription(event.value)
-    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
-    setQuizDescriptionValid(valid)
-    setErrorQuizDescription('')
+  const onChangeLesson = async event => {
+    setLesson(event.value)
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value) && await isValidLesson(event.value)
+    setLessonValid(valid)
+    setErrorLesson('')
     if (!valid) {
-      setErrorQuizDescription('Please enter a valid quiz description.')
+      setErrorLesson('Please enter a valid lesson.')
     }
   }
 
@@ -116,7 +119,7 @@ const AddQuizComponent = props => {
   }
 
   function isDisabled() {
-    return !quizTitleValid || !quizDescriptionValid || !quizLevelValid || questions.length === 0
+    return !quizTitleValid || !lessonValid || !quizLevelValid || questions.length === 0
   }
 
   function isAddDisabled() {
@@ -153,7 +156,7 @@ const AddQuizComponent = props => {
     setError('')
     const data = {
       'quizTitle': quizTitle.trim(),
-      'quizDescription': quizDescription.trim(),
+      'lesson': lesson.trim(),
       'quizLevel': quizLevel.trim(),
       'questions': questions
     }
@@ -382,14 +385,13 @@ const AddQuizComponent = props => {
                 </div>
                 <div>
                   <TextField isRequired={true}
-                             type='textarea'
-                             labelText='Quiz Description'
-                             name='quizDescription'
-                             value={quizDescription}
-                             errorText={errorQuizDescription}
-                             helperText={helperQuizDescription}
-                             maxLength={500}
-                             onChangeFn={event => onChangeQuizDescription(event)}/>
+                             labelText='Lesson (1/2/3/4)'
+                             name='lesson'
+                             value={lesson}
+                             errorText={errorLesson}
+                             helperText={helperLesson}
+                             maxLength={1}
+                             onChangeFn={event => onChangeLesson(event)}/>
                 </div>
                 <div>
                   <TextField isRequired={true}

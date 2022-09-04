@@ -3,7 +3,7 @@
 const mongoose = require('mongoose')
 const autoIncrement = require('mongoose-auto-increment')
 const uniqueValidator = require('mongoose-unique-validator')
-const {quizLevels, answers} = require("../config/enums.config");
+const {lessons, quizLevels, answers} = require("../config/enums.config");
 
 const Schema = mongoose.Schema
 
@@ -20,8 +20,9 @@ const QuizzesSchema = new Schema({
     unique: true,
     trim: true
   },
-  quizDescription: {
+  lesson: {
     type: String,
+    enum: lessons,
     required: true,
     unique: false,
     trim: true

@@ -13,7 +13,7 @@ const SingleQuizComponent = props => {
   const [loader, setLoader] = useState(false)
 
   const [quizTitle, setQuizTitle] = useState('')
-  const [quizDescription, setQuizDescription] = useState('')
+  const [lesson, setLesson] = useState('')
   const [quizLevel, setQuizLevel] = useState('')
   const [questions, setQuestions] = useState([])
 
@@ -31,7 +31,7 @@ const SingleQuizComponent = props => {
     axios.get(`${quizzesApi}quizzes/${id}`).then(res => {
       let data = res.data.quiz
       setQuizTitle(data.quizTitle)
-      setQuizDescription(data.quizDescription)
+      setLesson(data.lesson)
       setQuizLevel(data.quizLevel)
       setQuestions(data.questions)
       setLoader(false)
@@ -90,7 +90,7 @@ const SingleQuizComponent = props => {
                 <div>
                   <TextField labelText='Quiz Description'
                              type='textarea'
-                             value={quizDescription}
+                             value={lesson}
                              disabled={true}/>
                 </div>
                 <div>
