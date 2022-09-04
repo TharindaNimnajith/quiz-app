@@ -223,8 +223,8 @@ const PlayComponent = () => {
             {
               data.questions && data.questions.map((item, index) => {
                 return (
-                  <div className='mt-5'
-                       key={item._id}>
+                  <div key={index}
+                       className='mt-5'>
                     <div>
                       {
                         index < 9 ? (

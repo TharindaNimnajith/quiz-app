@@ -3,8 +3,10 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import {Card, CardBody, Label, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
-import {EditorState} from 'draft-js'
+import {convertToRaw, EditorState} from 'draft-js'
 import {Editor} from 'react-draft-wysiwyg'
+import draftToHtml from 'draftjs-to-html'
+import parse from 'html-react-parser'
 import {quizzesApi} from '../../../../../config/api.config'
 import {isEmpty, isValidCorrectAnswer, isValidLesson, isValidQuizLevel} from '../../../../../helpers/common.helpers'
 import Loader from '../../../../../components/loader/loader'
@@ -37,6 +39,14 @@ const AddQuizComponent = props => {
   const [answer4, setAnswer4] = useState(EditorState.createEmpty())
   const [answer5, setAnswer5] = useState(EditorState.createEmpty())
   const [correctAnswer, setCorrectAnswer] = useState('')
+
+  const [questionHtml, setQuestionHtml] = useState('')
+  const [hintsHtml, setHintsHtml] = useState('')
+  const [answer1Html, setAnswer1Html] = useState('')
+  const [answer2Html, setAnswer2Html] = useState('')
+  const [answer3Html, setAnswer3Html] = useState('')
+  const [answer4Html, setAnswer4Html] = useState('')
+  const [answer5Html, setAnswer5Html] = useState('')
 
   const [questions, setQuestions] = useState([])
 
@@ -82,30 +92,37 @@ const AddQuizComponent = props => {
 
   const onChangeQuestion = async event => {
     setQuestion(event)
+    setQuestionHtml(draftToHtml(convertToRaw(event.getCurrentContent())))
   }
 
   const onChangeHints = async event => {
     setHints(event)
+    setHintsHtml(draftToHtml(convertToRaw(event.getCurrentContent())))
   }
 
   const onChangeAnswer1 = async event => {
     setAnswer1(event)
+    setAnswer1Html(draftToHtml(convertToRaw(event.getCurrentContent())))
   }
 
   const onChangeAnswer2 = async event => {
     setAnswer2(event)
+    setAnswer2Html(draftToHtml(convertToRaw(event.getCurrentContent())))
   }
 
   const onChangeAnswer3 = async event => {
     setAnswer3(event)
+    setAnswer3Html(draftToHtml(convertToRaw(event.getCurrentContent())))
   }
 
   const onChangeAnswer4 = async event => {
     setAnswer4(event)
+    setAnswer4Html(draftToHtml(convertToRaw(event.getCurrentContent())))
   }
 
   const onChangeAnswer5 = async event => {
     setAnswer5(event)
+    setAnswer5Html(draftToHtml(convertToRaw(event.getCurrentContent())))
   }
 
   const onChangeCorrectAnswer = async event => {
@@ -140,13 +157,13 @@ const AddQuizComponent = props => {
 
   const onAdd = async () => {
     setQuestions([...questions, {
-      'question': question,
-      'hints': hints,
-      'answer1': answer1,
-      'answer2': answer2,
-      'answer3': answer3,
-      'answer4': answer4,
-      'answer5': answer5,
+      'question': questionHtml,
+      'hints': hintsHtml,
+      'answer1': answer1Html,
+      'answer2': answer2Html,
+      'answer3': answer3Html,
+      'answer4': answer4Html,
+      'answer5': answer5Html,
       'correctAnswer': correctAnswer
     }])
     setNewQuestionModal(!newQuestionModal)
@@ -156,8 +173,8 @@ const AddQuizComponent = props => {
     setError('')
     const data = {
       'quizTitle': quizTitle.trim(),
-      'lesson': lesson.trim(),
-      'quizLevel': quizLevel.trim(),
+      'lesson': lesson,
+      'quizLevel': quizLevel,
       'questions': questions
     }
     setLoader(true)
@@ -190,6 +207,13 @@ const AddQuizComponent = props => {
     setAnswer3(EditorState.createEmpty())
     setAnswer4(EditorState.createEmpty())
     setAnswer5(EditorState.createEmpty())
+    setQuestionHtml('')
+    setHintsHtml('')
+    setAnswer1Html('')
+    setAnswer2Html('')
+    setAnswer3Html('')
+    setAnswer4Html('')
+    setAnswer5Html('')
     setCorrectAnswer('')
     setErrorCorrectAnswer('')
     setCorrectAnswerValid(false)
@@ -405,51 +429,65 @@ const AddQuizComponent = props => {
                 </div>
                 <div>
                   {
-                    questions && questions.map(item => {
+                    questions && questions.map((item, index) => {
                       return (
-                        <div className='card bg-light p-3 mt-5'
-                             key={item.question}>
+                        <div key={index}
+                             className='card bg-light p-3 mt-5'>
                           <div>
-                            <TextField labelText='Question'
-                                       type='textarea'
-                                       value={item.question}
-                                       disabled={true}/>
+                            <Label className='mb-1 mt-2'>
+                              Question
+                            </Label>
+                            {
+                              parse(item.question)
+                            }
                           </div>
                           <div>
-                            <TextField labelText='Hints'
-                                       type='textarea'
-                                       value={item.hints}
-                                       disabled={true}/>
+                            <Label className='mb-1 mt-2'>
+                              Hints
+                            </Label>
+                            {
+                              parse(item.hints)
+                            }
                           </div>
                           <div>
-                            <TextField labelText='Answer 1'
-                                       type='textarea'
-                                       value={item.answer1}
-                                       disabled={true}/>
+                            <Label className='mb-1 mt-2'>
+                              Answer 1
+                            </Label>
+                            {
+                              parse(item.answer1)
+                            }
                           </div>
                           <div>
-                            <TextField labelText='Answer 2'
-                                       type='textarea'
-                                       value={item.answer2}
-                                       disabled={true}/>
+                            <Label className='mb-1 mt-2'>
+                              Answer 2
+                            </Label>
+                            {
+                              parse(item.answer2)
+                            }
                           </div>
                           <div>
-                            <TextField labelText='Answer 3'
-                                       type='textarea'
-                                       value={item.answer3}
-                                       disabled={true}/>
+                            <Label className='mb-1 mt-2'>
+                              Answer 3
+                            </Label>
+                            {
+                              parse(item.answer3)
+                            }
                           </div>
                           <div>
-                            <TextField labelText='Answer 4'
-                                       type='textarea'
-                                       value={item.answer4}
-                                       disabled={true}/>
+                            <Label className='mb-1 mt-2'>
+                              Answer 4
+                            </Label>
+                            {
+                              parse(item.answer4)
+                            }
                           </div>
                           <div>
-                            <TextField labelText='Answer 5'
-                                       type='textarea'
-                                       value={item.answer5}
-                                       disabled={true}/>
+                            <Label className='mb-1 mt-2'>
+                              Answer 5
+                            </Label>
+                            {
+                              parse(item.answer5)
+                            }
                           </div>
                           <div>
                             <TextField labelText='Correct Answer'

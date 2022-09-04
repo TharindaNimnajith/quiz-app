@@ -162,9 +162,9 @@ const QuizListComponent = props => {
       <div>
         <CardGroup>
           {
-            data && data.map(item => {
+            data && data.map((item, index) => {
               return (
-                <div key={item._id}
+                <div key={index}
                      className='card-width'>
                   <Card title='View Quiz'
                         className='m-4'>

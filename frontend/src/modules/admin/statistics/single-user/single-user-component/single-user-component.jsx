@@ -164,9 +164,9 @@ const SingleUserComponent = props => {
                   </thead>
                   <tbody>
                   {
-                    results && results.map(item => {
+                    results && results.map((item, index) => {
                       return (
-                        <tr key={item._id}>
+                        <tr key={index}>
                           <td className='text-center'>
                             {lesson}
                           </td>

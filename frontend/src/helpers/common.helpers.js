@@ -1,7 +1,7 @@
-// noinspection UnnecessaryLocalVariableJS
-
 const isEmpty = async value => {
-  const status =
+  let status
+
+  status =
     value === '' ||
     value === null ||
     value === undefined ||
@@ -12,7 +12,9 @@ const isEmpty = async value => {
 }
 
 const isValidCorrectAnswer = async value => {
-  const status =
+  let status
+
+  status =
     value === '1' ||
     value === '2' ||
     value === '3' ||
@@ -23,7 +25,9 @@ const isValidCorrectAnswer = async value => {
 }
 
 const isValidLesson = async value => {
-  const status =
+  let status
+
+  status =
     value === '1' ||
     value === '2' ||
     value === '3' ||
@@ -33,7 +37,9 @@ const isValidLesson = async value => {
 }
 
 const isValidQuizLevel = async value => {
-  const status =
+  let status
+
+  status =
     value === 'General' ||
     value === '1A' ||
     value === '1B' ||

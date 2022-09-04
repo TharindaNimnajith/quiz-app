@@ -9,7 +9,7 @@ const AddQuiz = props => {
       <div>
         <Header/>
       </div>
-      <div className='container add-quiz-page'>
+      <div className='add-quiz-page'>
         <AddQuizComponent history={props.history}/>
       </div>
     </div>

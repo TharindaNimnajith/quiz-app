@@ -100,10 +100,10 @@ const SingleQuizComponent = props => {
                 </div>
                 <div>
                   {
-                    questions && questions.map(item => {
+                    questions && questions.map((item, index) => {
                       return (
-                        <div className='card bg-light p-3 mt-5'
-                             key={item.question}>
+                        <div key={index}
+                             className='card bg-light p-3 mt-5'>
                           <div>
                             <TextField labelText='Question'
                                        type='textarea'

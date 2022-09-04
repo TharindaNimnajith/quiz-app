@@ -30,11 +30,11 @@ const UserHomeComponent = () => {
     setActiveIndex(newIndex)
   }
 
-  const slides = carousel2.map(item => {
+  const slides = carousel2.map((item, index) => {
     return (
-      <CarouselItem onExiting={() => setAnimating(true)}
-                    onExited={() => setAnimating(false)}
-                    key={item.src}>
+      <CarouselItem key={index}
+                    onExiting={() => setAnimating(true)}
+                    onExited={() => setAnimating(false)}>
         <div align='center'>
           <img src={item.src}
                alt={item.altText}

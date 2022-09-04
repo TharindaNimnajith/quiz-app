@@ -68,7 +68,7 @@ const LeaderboardComponent = props => {
           {
             data && data.map((item, index) => {
               return (
-                <tr key={item._id}>
+                <tr key={index}>
                   <td className='text-center'>
                     {item.userId}
                   </td>
