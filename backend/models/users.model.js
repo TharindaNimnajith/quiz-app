@@ -1,3 +1,5 @@
+// noinspection JSUnresolvedVariable
+
 const mongoose = require('mongoose')
 const autoIncrement = require('mongoose-auto-increment')
 const uniqueValidator = require('mongoose-unique-validator')

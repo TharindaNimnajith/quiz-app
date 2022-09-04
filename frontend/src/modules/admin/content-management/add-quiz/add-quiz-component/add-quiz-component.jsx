@@ -1,6 +1,10 @@
+// noinspection ES6CheckImport
+
 import React, {useState} from 'react'
 import axios from 'axios'
-import {Card, CardBody, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
+import {EditorState} from 'draft-js'
+import {Editor} from 'react-draft-wysiwyg'
+import {Card, CardBody, Label, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {isEmpty, isValidCorrectAnswer, isValidQuizLevel} from '../../../../../helpers/common.helpers'
 import {quizzesApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
@@ -18,44 +22,29 @@ const AddQuizComponent = props => {
   const helperQuizTitle = 'Please enter a title for the quiz.'
   const helperQuizDescription = 'Please enter a description about the quiz.'
   const helperQuizLevel = 'Please enter the level (General/1A/1B/2A/2B/3A/3B).'
-  const helperQuestion = 'Please enter the question.'
-  const helperHints = 'Please enter hints.'
-  const helperAnswer1 = 'Please enter answer 1.'
-  const helperAnswer2 = 'Please enter answer 2.'
-  const helperAnswer3 = 'Please enter answer 3.'
-  const helperAnswer4 = 'Please enter answer 4.'
-  const helperCorrectAnswer = 'Please enter the correct answer (1/2/3/4).'
+  const helperCorrectAnswer = 'Please enter the correct answer (1/2/3/4/5).'
 
   const [quizTitle, setQuizTitle] = useState('')
   const [quizDescription, setQuizDescription] = useState('')
   const [quizLevel, setQuizLevel] = useState('')
-  const [question, setQuestion] = useState('')
-  const [hints, setHints] = useState('')
-  const [answer1, setAnswer1] = useState('')
-  const [answer2, setAnswer2] = useState('')
-  const [answer3, setAnswer3] = useState('')
-  const [answer4, setAnswer4] = useState('')
+  const [question, setQuestion] = useState(EditorState.createEmpty())
+  const [hints, setHints] = useState(EditorState.createEmpty())
+  const [answer1, setAnswer1] = useState(EditorState.createEmpty())
+  const [answer2, setAnswer2] = useState(EditorState.createEmpty())
+  const [answer3, setAnswer3] = useState(EditorState.createEmpty())
+  const [answer4, setAnswer4] = useState(EditorState.createEmpty())
+  const [answer5, setAnswer5] = useState(EditorState.createEmpty())
   const [correctAnswer, setCorrectAnswer] = useState('')
   const [questions, setQuestions] = useState([])
 
   const [errorQuizTitle, setErrorQuizTitle] = useState('')
   const [errorQuizDescription, setErrorQuizDescription] = useState('')
   const [errorQuizLevel, setErrorQuizLevel] = useState('')
-  const [errorQuestion, setErrorQuestion] = useState('')
-  const [errorAnswer1, setErrorAnswer1] = useState('')
-  const [errorAnswer2, setErrorAnswer2] = useState('')
-  const [errorAnswer3, setErrorAnswer3] = useState('')
-  const [errorAnswer4, setErrorAnswer4] = useState('')
   const [errorCorrectAnswer, setErrorCorrectAnswer] = useState('')
 
   const [quizTitleValid, setQuizTitleValid] = useState(false)
   const [quizDescriptionValid, setQuizDescriptionValid] = useState(false)
   const [quizLevelValid, setQuizLevelValid] = useState(false)
-  const [questionValid, setQuestionValid] = useState(false)
-  const [answer1Valid, setAnswer1Valid] = useState(false)
-  const [answer2Valid, setAnswer2Valid] = useState(false)
-  const [answer3Valid, setAnswer3Valid] = useState(false)
-  const [answer4Valid, setAnswer4Valid] = useState(false)
   const [correctAnswerValid, setCorrectAnswerValid] = useState(false)
 
   const onChangeQuizTitle = async event => {
@@ -89,57 +78,31 @@ const AddQuizComponent = props => {
   }
 
   const onChangeQuestion = async event => {
-    setQuestion(event.value)
-    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
-    setQuestionValid(valid)
-    setErrorQuestion('')
-    if (!valid) {
-      setErrorQuestion('Please enter a valid question.')
-    }
+    setQuestion(event)
   }
 
   const onChangeHints = async event => {
-    setHints(event.value)
+    setHints(event)
   }
 
   const onChangeAnswer1 = async event => {
-    setAnswer1(event.value)
-    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
-    setAnswer1Valid(valid)
-    setErrorAnswer1('')
-    if (!valid) {
-      setErrorAnswer1('Please enter a valid answer.')
-    }
+    setAnswer1(event)
   }
 
   const onChangeAnswer2 = async event => {
-    setAnswer2(event.value)
-    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
-    setAnswer2Valid(valid)
-    setErrorAnswer2('')
-    if (!valid) {
-      setErrorAnswer2('Please enter a valid answer.')
-    }
+    setAnswer2(event)
   }
 
   const onChangeAnswer3 = async event => {
-    setAnswer3(event.value)
-    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
-    setAnswer3Valid(valid)
-    setErrorAnswer3('')
-    if (!valid) {
-      setErrorAnswer3('Please enter a valid answer.')
-    }
+    setAnswer3(event)
   }
 
   const onChangeAnswer4 = async event => {
-    setAnswer4(event.value)
-    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
-    setAnswer4Valid(valid)
-    setErrorAnswer4('')
-    if (!valid) {
-      setErrorAnswer4('Please enter a valid answer.')
-    }
+    setAnswer4(event)
+  }
+
+  const onChangeAnswer5 = async event => {
+    setAnswer5(event)
   }
 
   const onChangeCorrectAnswer = async event => {
@@ -148,7 +111,7 @@ const AddQuizComponent = props => {
     setCorrectAnswerValid(valid)
     setErrorCorrectAnswer('')
     if (!valid) {
-      setErrorCorrectAnswer('Please enter the valid number for correct answer (1/2/3/4).')
+      setErrorCorrectAnswer('Please enter the valid number for correct answer (1/2/3/4/5).')
     }
   }
 
@@ -157,7 +120,7 @@ const AddQuizComponent = props => {
   }
 
   function isAddDisabled() {
-    return !questionValid || !answer1Valid || !answer2Valid || !answer3Valid || !answer4Valid || !correctAnswerValid
+    return !correctAnswerValid
   }
 
   const toggleSuccessModal = async () => {
@@ -180,6 +143,7 @@ const AddQuizComponent = props => {
       'answer2': answer2,
       'answer3': answer3,
       'answer4': answer4,
+      'answer5': answer5,
       'correctAnswer': correctAnswer
     }])
     setNewQuestionModal(!newQuestionModal)
@@ -216,24 +180,15 @@ const AddQuizComponent = props => {
   }
 
   const reset = async () => {
-    setQuestion('')
-    setHints('')
-    setAnswer1('')
-    setAnswer2('')
-    setAnswer3('')
-    setAnswer4('')
+    setQuestion(EditorState.createEmpty())
+    setHints(EditorState.createEmpty())
+    setAnswer1(EditorState.createEmpty())
+    setAnswer2(EditorState.createEmpty())
+    setAnswer3(EditorState.createEmpty())
+    setAnswer4(EditorState.createEmpty())
+    setAnswer5(EditorState.createEmpty())
     setCorrectAnswer('')
-    setErrorQuestion('')
-    setErrorAnswer1('')
-    setErrorAnswer2('')
-    setErrorAnswer3('')
-    setErrorAnswer4('')
     setErrorCorrectAnswer('')
-    setQuestionValid(false)
-    setAnswer1Valid(false)
-    setAnswer2Valid(false)
-    setAnswer3Valid(false)
-    setAnswer4Valid(false)
     setCorrectAnswerValid(false)
   }
 
@@ -267,80 +222,100 @@ const AddQuizComponent = props => {
       <div>
         <Modal isOpen={newQuestionModal}
                toggle={toggleNewQuestionModal}
-               className='modal-close'>
+               className='modal-close'
+               fullscreen={true}>
           <ModalHeader toggle={toggleNewQuestionModal}
                        className='text-uppercase title'>
             New Question
           </ModalHeader>
           <ModalBody>
             <div>
-              <TextField isRequired={true}
-                         type='textarea'
-                         labelText='Question'
-                         name='question'
-                         value={question}
-                         errorText={errorQuestion}
-                         helperText={helperQuestion}
-                         maxLength={500}
-                         onChangeFn={event => onChangeQuestion(event)}/>
+              <Label className='mb-1 mt-2'>
+                Question
+                <span className='error'>
+                  &nbsp;*
+                </span>
+              </Label>
+              <Editor editorState={question}
+                      wrapperClassName='demo-wrapper'
+                      editorClassName='demo-editor'
+                      onEditorStateChange={onChangeQuestion}/>
             </div>
             <div>
-              <TextField isRequired={false}
-                         type='textarea'
-                         labelText='Hints'
-                         name='hints'
-                         value={hints}
-                         helperText={helperHints}
-                         maxLength={500}
-                         onChangeFn={event => onChangeHints(event)}/>
+              <Label className='mb-1 mt-2'>
+                Hints
+                <span className='error'>
+                  &nbsp;*
+                </span>
+              </Label>
+              <Editor editorState={hints}
+                      wrapperClassName='demo-wrapper'
+                      editorClassName='demo-editor'
+                      onEditorStateChange={onChangeHints}/>
+            </div>
+            <div>
+              <Label className='mb-1 mt-2'>
+                Answer 1
+                <span className='error'>
+                  &nbsp;*
+                </span>
+              </Label>
+              <Editor editorState={answer1}
+                      wrapperClassName='demo-wrapper-answer'
+                      editorClassName='demo-editor-answer'
+                      onEditorStateChange={onChangeAnswer1}/>
+            </div>
+            <div>
+              <Label className='mb-1 mt-2'>
+                Answer 2
+                <span className='error'>
+                  &nbsp;*
+                </span>
+              </Label>
+              <Editor editorState={answer2}
+                      wrapperClassName='demo-wrapper-answer'
+                      editorClassName='demo-editor-answer'
+                      onEditorStateChange={onChangeAnswer2}/>
+            </div>
+            <div>
+              <Label className='mb-1 mt-2'>
+                Answer 3
+                <span className='error'>
+                  &nbsp;*
+                </span>
+              </Label>
+              <Editor editorState={answer3}
+                      wrapperClassName='demo-wrapper-answer'
+                      editorClassName='demo-editor-answer'
+                      onEditorStateChange={onChangeAnswer3}/>
+            </div>
+            <div>
+              <Label className='mb-1 mt-2'>
+                Answer 4
+                <span className='error'>
+                  &nbsp;*
+                </span>
+              </Label>
+              <Editor editorState={answer4}
+                      wrapperClassName='demo-wrapper-answer'
+                      editorClassName='demo-editor-answer'
+                      onEditorStateChange={onChangeAnswer4}/>
+            </div>
+            <div>
+              <Label className='mb-1 mt-2'>
+                Answer 5
+                <span className='error'>
+                  &nbsp;*
+                </span>
+              </Label>
+              <Editor editorState={answer5}
+                      wrapperClassName='demo-wrapper-answer'
+                      editorClassName='demo-editor-answer'
+                      onEditorStateChange={onChangeAnswer5}/>
             </div>
             <div>
               <TextField isRequired={true}
-                         type='textarea'
-                         labelText='Answer 1'
-                         name='answer1'
-                         value={answer1}
-                         errorText={errorAnswer1}
-                         helperText={helperAnswer1}
-                         maxLength={500}
-                         onChangeFn={event => onChangeAnswer1(event)}/>
-            </div>
-            <div>
-              <TextField isRequired={true}
-                         type='textarea'
-                         labelText='Answer 2'
-                         name='answer2'
-                         value={answer2}
-                         errorText={errorAnswer2}
-                         helperText={helperAnswer2}
-                         maxLength={500}
-                         onChangeFn={event => onChangeAnswer2(event)}/>
-            </div>
-            <div>
-              <TextField isRequired={true}
-                         type='textarea'
-                         labelText='Answer 3'
-                         name='answer3'
-                         value={answer3}
-                         errorText={errorAnswer3}
-                         helperText={helperAnswer3}
-                         maxLength={500}
-                         onChangeFn={event => onChangeAnswer3(event)}/>
-            </div>
-            <div>
-              <TextField isRequired={true}
-                         type='textarea'
-                         labelText='Answer 4'
-                         name='answer4'
-                         value={answer4}
-                         errorText={errorAnswer4}
-                         helperText={helperAnswer4}
-                         maxLength={500}
-                         onChangeFn={event => onChangeAnswer4(event)}/>
-            </div>
-            <div>
-              <TextField isRequired={true}
-                         labelText='Correct Answer (1/2/3/4)'
+                         labelText='Correct Answer (1/2/3/4/5)'
                          name='correctAnswer'
                          value={correctAnswer}
                          errorText={errorCorrectAnswer}
@@ -350,11 +325,22 @@ const AddQuizComponent = props => {
             </div>
           </ModalBody>
           <ModalFooter>
-            <ButtonComponent btnText='Add'
-                             isFullWidth={false}
-                             elementStyle='ok-button'
-                             disabled={isAddDisabled()}
-                             onClickFn={onAdd}/>
+            <div className='row'>
+              <div className='col-sm'>
+                <ButtonComponent btnText='Cancel'
+                                 isFullWidth={false}
+                                 elementStyle='ok-button'
+                                 disabled={false}
+                                 onClickFn={toggleNewQuestionModal}/>
+              </div>
+              <div className='col-sm'>
+                <ButtonComponent btnText='Add'
+                                 isFullWidth={false}
+                                 elementStyle='ok-button'
+                                 disabled={isAddDisabled()}
+                                 onClickFn={onAdd}/>
+              </div>
+            </div>
           </ModalFooter>
         </Modal>
       </div>
@@ -458,6 +444,12 @@ const AddQuizComponent = props => {
                             <TextField labelText='Answer 4'
                                        type='textarea'
                                        value={item.answer4}
+                                       disabled={true}/>
+                          </div>
+                          <div>
+                            <TextField labelText='Answer 5'
+                                       type='textarea'
+                                       value={item.answer5}
                                        disabled={true}/>
                           </div>
                           <div>
