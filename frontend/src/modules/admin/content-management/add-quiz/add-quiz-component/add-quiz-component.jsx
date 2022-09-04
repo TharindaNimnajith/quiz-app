@@ -2,11 +2,11 @@
 
 import React, {useState} from 'react'
 import axios from 'axios'
+import {Card, CardBody, Label, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import {EditorState} from 'draft-js'
 import {Editor} from 'react-draft-wysiwyg'
-import {Card, CardBody, Label, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
-import {isEmpty, isValidCorrectAnswer, isValidQuizLevel} from '../../../../../helpers/common.helpers'
 import {quizzesApi} from '../../../../../config/api.config'
+import {isEmpty, isValidCorrectAnswer, isValidQuizLevel} from '../../../../../helpers/common.helpers'
 import Loader from '../../../../../components/loader/loader'
 import ButtonComponent from '../../../../../components/button/button'
 import TextField from '../../../../../components/text-field/text-field'
@@ -244,9 +244,6 @@ const AddQuizComponent = props => {
             <div>
               <Label className='mb-1 mt-2'>
                 Hints
-                <span className='error'>
-                  &nbsp;*
-                </span>
               </Label>
               <Editor editorState={hints}
                       wrapperClassName='demo-wrapper'

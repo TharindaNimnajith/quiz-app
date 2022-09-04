@@ -44,7 +44,7 @@ const SingleUserComponent = props => {
       setResults(data.results)
       for (let item of data.results) {
         csvData.push({
-          level: data.level,
+          level: item.quizLevel,
           question: item.question,
           studentAnswer: item.studentAnswer,
           correctAnswer: item.correctAnswer,
