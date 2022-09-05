@@ -136,7 +136,7 @@ const SingleUserComponent = props => {
                 <label className='my-1'>Total: {total}</label>
                 <br/>
               </div>
-              <div>
+              <div className='mt-4 mb-5'>
                 <Table bordered>
                   <thead>
                   <tr className='text-center'>

@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
-import {Card, CardBody} from 'reactstrap'
+import {Card, CardBody, Label} from 'reactstrap'
 import axios from 'axios'
 import {quizzesApi} from '../../../../../config/api.config'
 import Loader from '../../../../../components/loader/loader'
 import ButtonComponent from '../../../../../components/button/button'
 import TextField from '../../../../../components/text-field/text-field'
 import './single-quiz-component.css'
+import parse from "html-react-parser";
 
 const SingleQuizComponent = props => {
   const [error, setError] = useState('')
@@ -65,7 +66,7 @@ const SingleQuizComponent = props => {
             <div className='quiz-header'>
               <div className='text-primary text-center p-4'>
                 <h1 className='text-white font-size-20 text-uppercase'>
-                  QUIZ - {quizTitle}
+                  {quizTitle}
                 </h1>
               </div>
             </div>
@@ -88,8 +89,7 @@ const SingleQuizComponent = props => {
                              disabled={true}/>
                 </div>
                 <div>
-                  <TextField labelText='Quiz Description'
-                             type='textarea'
+                  <TextField labelText='Lesson'
                              value={lesson}
                              disabled={true}/>
                 </div>
@@ -98,47 +98,85 @@ const SingleQuizComponent = props => {
                              value={quizLevel}
                              disabled={true}/>
                 </div>
-                <div>
+                <div className='custom'>
                   {
                     questions && questions.map((item, index) => {
                       return (
                         <div key={index}
-                             className='card bg-light p-3 mt-5'>
-                          <div>
-                            <TextField labelText='Question'
-                                       type='textarea'
-                                       value={item.question}
-                                       disabled={true}/>
+                             className='card bg-light px-4 py-2 mt-5'>
+                          <div className='my-2'>
+                            <Label>
+                              Question
+                            </Label>
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.question)
+                              }
+                            </div>
+                          </div>
+                          {
+                            item.hints && (
+                              <div className='my-2'>
+                                <Label>
+                                  Hints
+                                </Label>
+                                <div className='border-style p-3'>
+                                  {
+                                    parse(item.hints)
+                                  }
+                                </div>
+                              </div>
+                            )
+                          }
+                          <div className='my-2'>
+                            <Label>
+                              Answer 1
+                            </Label>
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer1)
+                              }
+                            </div>
+                          </div>
+                          <div className='my-2'>
+                            <Label>
+                              Answer 2
+                            </Label>
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer2)
+                              }
+                            </div>
                           </div>
                           <div>
-                            <TextField labelText='Hints'
-                                       type='textarea'
-                                       value={item.hints}
-                                       disabled={true}/>
+                            <Label className='my-2'>
+                              Answer 3
+                            </Label>
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer3)
+                              }
+                            </div>
                           </div>
                           <div>
-                            <TextField labelText='Answer 1'
-                                       type='textarea'
-                                       value={item.answer1}
-                                       disabled={true}/>
+                            <Label className='my-2'>
+                              Answer 4
+                            </Label>
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer4)
+                              }
+                            </div>
                           </div>
                           <div>
-                            <TextField labelText='Answer 2'
-                                       type='textarea'
-                                       value={item.answer2}
-                                       disabled={true}/>
-                          </div>
-                          <div>
-                            <TextField labelText='Answer 3'
-                                       type='textarea'
-                                       value={item.answer3}
-                                       disabled={true}/>
-                          </div>
-                          <div>
-                            <TextField labelText='Answer 4'
-                                       type='textarea'
-                                       value={item.answer4}
-                                       disabled={true}/>
+                            <Label className='my-2'>
+                              Answer 5
+                            </Label>
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer5)
+                              }
+                            </div>
                           </div>
                           <div>
                             <TextField labelText='Correct Answer'

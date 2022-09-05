@@ -427,67 +427,85 @@ const AddQuizComponent = props => {
                              maxLength={7}
                              onChangeFn={event => onChangeQuizLevel(event)}/>
                 </div>
-                <div>
+                <div className='custom'>
                   {
                     questions && questions.map((item, index) => {
                       return (
                         <div key={index}
-                             className='card bg-light p-3 mt-5'>
-                          <div>
-                            <Label className='mb-1 mt-2'>
+                             className='card bg-light px-4 py-2 mt-5'>
+                          <div className='my-2'>
+                            <Label>
                               Question
                             </Label>
-                            {
-                              parse(item.question)
-                            }
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.question)
+                              }
+                            </div>
                           </div>
-                          <div>
-                            <Label className='mb-1 mt-2'>
-                              Hints
-                            </Label>
-                            {
-                              parse(item.hints)
-                            }
-                          </div>
-                          <div>
-                            <Label className='mb-1 mt-2'>
+                          {
+                            item.hints && (
+                              <div className='my-2'>
+                                <Label>
+                                  Hints
+                                </Label>
+                                <div className='border-style p-3'>
+                                  {
+                                    parse(item.hints)
+                                  }
+                                </div>
+                              </div>
+                            )
+                          }
+                          <div className='my-2'>
+                            <Label>
                               Answer 1
                             </Label>
-                            {
-                              parse(item.answer1)
-                            }
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer1)
+                              }
+                            </div>
                           </div>
-                          <div>
-                            <Label className='mb-1 mt-2'>
+                          <div className='my-2'>
+                            <Label>
                               Answer 2
                             </Label>
-                            {
-                              parse(item.answer2)
-                            }
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer2)
+                              }
+                            </div>
                           </div>
                           <div>
-                            <Label className='mb-1 mt-2'>
+                            <Label className='my-2'>
                               Answer 3
                             </Label>
-                            {
-                              parse(item.answer3)
-                            }
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer3)
+                              }
+                            </div>
                           </div>
                           <div>
-                            <Label className='mb-1 mt-2'>
+                            <Label className='my-2'>
                               Answer 4
                             </Label>
-                            {
-                              parse(item.answer4)
-                            }
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer4)
+                              }
+                            </div>
                           </div>
                           <div>
-                            <Label className='mb-1 mt-2'>
+                            <Label className='my-2'>
                               Answer 5
                             </Label>
-                            {
-                              parse(item.answer5)
-                            }
+                            <div className='border-style p-3'>
+                              {
+                                parse(item.answer5)
+                              }
+                            </div>
                           </div>
                           <div>
                             <TextField labelText='Correct Answer'

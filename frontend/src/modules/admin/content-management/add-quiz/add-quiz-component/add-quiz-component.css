@@ -1,6 +1,10 @@
 .quiz-wrapper {
     min-width: max-content;
-    width: 100%;
+    width: 75%;
+}
+
+.custom {
+    max-width: 1400px;
 }
 
 .quiz-header {
@@ -43,6 +47,12 @@
     border: 1px solid #cecece !important;
     padding: 5px !important;
     border-radius: 5px !important;
+}
+
+.border-style {
+    border: solid 1px #b4b4b4;
+    border-radius: 5px;
+    background-color: #ececec;
 }
 
 /*# sourceMappingURL=react-draft-wysiwyg.css.map*/

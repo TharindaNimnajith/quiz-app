@@ -1,6 +1,10 @@
 .quiz-wrapper {
     min-width: max-content;
-    width: 40%;
+    width: 75%;
+}
+
+.custom {
+    max-width: 1400px;
 }
 
 .quiz-header {
