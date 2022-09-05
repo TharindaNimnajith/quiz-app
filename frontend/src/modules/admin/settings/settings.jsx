@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Card, CardBody, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import axios from 'axios'
 import {isEmpty, isValidLesson} from '../../../helpers/common.helpers'
@@ -20,8 +20,21 @@ const Settings = () => {
   const [errorValue, setErrorValue] = useState('')
   const [valueValid, setValueValid] = useState(false)
 
-  const toggleSuccessModal = async () => {
-    setSuccessModal(!successModal)
+  useEffect(() => {
+    loadData().then(() => {
+    })
+  }, [])
+
+  const loadData = async () => {
+    setLoader(true)
+    axios.get(`${settingsApi}settings/Lesson`).then(res => {
+      setValue(res.data.setting.value)
+      setLoader(false)
+    }).catch(error => {
+      setError('An unexpected error occurred. Please try again later.')
+      setLoader(false)
+      console.error(error)
+    })
   }
 
   const onChangeValue = async event => {
@@ -38,6 +51,10 @@ const Settings = () => {
     return !valueValid
   }
 
+  const toggleSuccessModal = async () => {
+    setSuccessModal(!successModal)
+  }
+
   const onSubmit = async () => {
     setError('')
     const data = {
@@ -45,7 +62,7 @@ const Settings = () => {
       'value': value
     }
     setLoader(true)
-    axios.post(`${settingsApi}settings`, data).then(res => {
+    axios.put(`${settingsApi}settings`, data).then(res => {
       if (res.data.status === 201) {
         setLoader(false)
         setMessage(res.data.message)

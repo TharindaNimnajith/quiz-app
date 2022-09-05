@@ -57,8 +57,6 @@ const LeaderboardComponent = props => {
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>Lesson</th>
-            <th>Level</th>
             <th>Total</th>
             <th>Rank</th>
             <th>Actions</th>
@@ -80,12 +78,6 @@ const LeaderboardComponent = props => {
                   </td>
                   <td>
                     {item.email}
-                  </td>
-                  <td className='text-center'>
-                    {item.lesson}
-                  </td>
-                  <td className='text-center'>
-                    {item.level}
                   </td>
                   <td align='right'>
                     {item.total}

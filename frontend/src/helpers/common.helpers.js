@@ -1,54 +1,38 @@
 const isEmpty = async value => {
-  let status
-
-  status =
+  return (
     value === '' ||
     value === null ||
     value === undefined ||
     value === 'null' ||
-    value === 'undefined'
-
-  return status
+    value === 'undefined')
 }
 
 const isValidCorrectAnswer = async value => {
-  let status
-
-  status =
+  return (
     value === '1' ||
     value === '2' ||
     value === '3' ||
     value === '4' ||
-    value === '5'
-
-  return status
+    value === '5')
 }
 
 const isValidLesson = async value => {
-  let status
-
-  status =
+  return (
     value === '1' ||
     value === '2' ||
     value === '3' ||
-    value === '4'
-
-  return status
+    value === '4')
 }
 
 const isValidQuizLevel = async value => {
-  let status
-
-  status =
+  return (
     value === 'General' ||
     value === '1A' ||
     value === '1B' ||
     value === '2A' ||
     value === '2B' ||
     value === '3A' ||
-    value === '3B'
-
-  return status
+    value === '3B')
 }
 
 export {

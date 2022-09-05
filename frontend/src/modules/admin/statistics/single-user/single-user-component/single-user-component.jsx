@@ -16,10 +16,9 @@ const SingleUserComponent = props => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [lesson, setLesson] = useState('')
-  const [level, setLevel] = useState('')
   const [total, setTotal] = useState('')
 
+  const [levels, setLevels] = useState([])
   const [results, setResults] = useState([])
   const [csvData, setCsvData] = useState([])
 
@@ -40,9 +39,8 @@ const SingleUserComponent = props => {
       setFirstName(data.firstName)
       setLastName(data.lastName)
       setEmail(data.email)
-      setLesson(data.lesson)
-      setLevel(data.level)
       setTotal(data.total)
+      setLevels(data.levels)
       setResults(data.results)
       for (let item of data.results) {
         csvData.push({
@@ -135,12 +133,34 @@ const SingleUserComponent = props => {
                 <br/>
                 <label className='my-1'>Email: {email}</label>
                 <br/>
-                <label className='my-1'>Lesson: {lesson}</label>
-                <br/>
-                <label className='my-1'>Level: {level}</label>
-                <br/>
                 <label className='my-1'>Total: {total}</label>
                 <br/>
+              </div>
+              <div>
+                <Table bordered>
+                  <thead>
+                  <tr className='text-center'>
+                    <th>Lesson</th>
+                    <th>Level</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {
+                    levels && levels.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td className='text-center'>
+                            {item.lesson}
+                          </td>
+                          <td className='text-center'>
+                            {item.level}
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                  </tbody>
+                </Table>
               </div>
               <div>
                 <h4 className='text-center my-3'>
@@ -168,7 +188,7 @@ const SingleUserComponent = props => {
                       return (
                         <tr key={index}>
                           <td className='text-center'>
-                            {lesson}
+                            {item.lesson}
                           </td>
                           <td className='text-center'>
                             {item.quizLevel}

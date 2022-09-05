@@ -11,7 +11,7 @@ const HttpErrors = require('./config/errors.config')
 const UsersRoutes = require('./routes/users.routes')
 const AuthRoutes = require('./routes/auth.routes')
 const QuizzesRoutes = require('./routes/quizzes.routes')
-const SettingsRoutes = require('./routes/quizzes.routes')
+const SettingsRoutes = require('./routes/settings.routes')
 
 require('dotenv').config()
 
