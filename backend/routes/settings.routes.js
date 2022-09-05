@@ -4,8 +4,7 @@ const SettingsController = require('../controllers/settings-controller')
 const router = express.Router()
 
 router.post('/settings', SettingsController.addSetting)
-router.put('/settings/:id', SettingsController.updateSetting)
-router.get('/settings/:id', SettingsController.getSetting)
-router.get('/settings', SettingsController.getSettingsList)
+router.put('/settings', SettingsController.updateSetting)
+router.get('/settings/:key', SettingsController.getSetting)
 
 module.exports = router

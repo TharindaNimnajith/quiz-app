@@ -13,6 +13,7 @@ import SingleUser from './modules/admin/statistics/single-user/single-user'
 import QuizList from './modules/admin/content-management/quiz-list/quiz-list'
 import AddQuiz from './modules/admin/content-management/add-quiz/add-quiz'
 import SingleQuiz from './modules/admin/content-management/single-quiz/single-quiz'
+import Settings from './modules/admin/settings/settings'
 import NotFound from './modules/shared/not-found/not-found'
 import './App.css'
 
@@ -83,6 +84,11 @@ const App = () => {
                            needAuthentication={true}
                            userType={admin}
                            component={SingleQuiz}/>
+              <RouteFilter path='/settings'
+                           exact={true}
+                           needAuthentication={true}
+                           userType={admin}
+                           component={Settings}/>
               <Route component={NotFound}/>
             </Switch>
           </BrowserRouter>

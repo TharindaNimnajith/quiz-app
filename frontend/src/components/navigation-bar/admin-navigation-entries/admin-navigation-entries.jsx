@@ -46,6 +46,14 @@ const AdminNavigationEntries = () => {
             </NavLink>
           </NavItem>
         </div>
+        <div>
+          <NavItem>
+            <NavLink href='/settings'>
+              <i className='fa fa-fw fa-gear mx-2 my-1'/>
+              <label>Settings</label>
+            </NavLink>
+          </NavItem>
+        </div>
       </Nav>
     </div>
   )

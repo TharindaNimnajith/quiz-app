@@ -1,0 +1,30 @@
+.settings-page {
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
+
+.page-title {
+    letter-spacing: 7px;
+    color: #183475;
+}
+
+.settings-wrapper {
+    min-width: max-content;
+    width: 40%;
+}
+
+.settings-header {
+    background-color: #626ed4;
+}
+
+.submit-btn {
+    min-width: max-content;
+    padding-left: 7%;
+    padding-right: 7%;
+}
+
+.error {
+    color: red;
+}

@@ -62,7 +62,7 @@ const AddQuizComponent = props => {
 
   const onChangeQuizTitle = async event => {
     setQuizTitle(event.value)
-    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value);
+    let valid = event.eventInfo.target.validity.valid && !await isEmpty(event.value)
     setQuizTitleValid(valid)
     setErrorQuizTitle('')
     if (!valid) {
@@ -76,7 +76,7 @@ const AddQuizComponent = props => {
     setLessonValid(valid)
     setErrorLesson('')
     if (!valid) {
-      setErrorLesson('Please enter a valid lesson.')
+      setErrorLesson('Please enter a valid lesson (1/2/3/4).')
     }
   }
 

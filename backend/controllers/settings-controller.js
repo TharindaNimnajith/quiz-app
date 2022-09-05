@@ -46,15 +46,14 @@ const updateSetting = async (req, res) => {
   let setting
 
   const {
-    id
-  } = req.params
-
-  const {
+    key,
     value
   } = req.body
 
   try {
-    setting = await SettingsModel.findById(id)
+    setting = await SettingsModel.findOne({
+      key: key
+    })
   } catch (error) {
     console.error(error)
     res.status(500).send(error)
@@ -71,7 +70,7 @@ const updateSetting = async (req, res) => {
 
   res.send({
     status: 200,
-    message: 'Updated successfully!',
+    message: 'Value updated successfully!',
     setting: setting
   })
 }
@@ -80,11 +79,13 @@ const getSetting = async (req, res) => {
   let setting
 
   const {
-    id
+    key
   } = req.params
 
   try {
-    setting = await SettingsModel.findById(id)
+    setting = await SettingsModel.findOne({
+      key: key
+    })
   } catch (error) {
     console.error(error)
     res.status(500).send(error)
@@ -96,23 +97,6 @@ const getSetting = async (req, res) => {
   })
 }
 
-const getSettingsList = async (req, res) => {
-  let settingsList
-
-  try {
-    settingsList = await SettingsModel.find()
-  } catch (error) {
-    console.error(error)
-    res.status(500).send(error)
-  }
-
-  res.send({
-    status: 200,
-    settingsList: settingsList
-  })
-}
-
 exports.addSetting = addSetting
 exports.updateSetting = updateSetting
 exports.getSetting = getSetting
-exports.getSettingsList = getSettingsList
