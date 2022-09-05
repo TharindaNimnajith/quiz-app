@@ -104,6 +104,9 @@ const SingleQuizComponent = props => {
                       return (
                         <div key={index}
                              className='card bg-light px-4 py-2 mt-5'>
+                          <div className='my-3 counter'>
+                            {index + 1}
+                          </div>
                           <div className='my-2'>
                             <Label>
                               Question

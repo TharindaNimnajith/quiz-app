@@ -177,12 +177,12 @@ const QuizListComponent = props => {
                       </CardTitle>
                       <CardText className='m-4 text-center'>
                         <label>
-                          {item.lesson}
+                          Lesson: {item.lesson}
                         </label>
                       </CardText>
                       <CardText className='m-4 text-center'>
                         <label>
-                          {item.quizLevel}
+                          Level: {item.quizLevel}
                         </label>
                       </CardText>
                     </CardBody>

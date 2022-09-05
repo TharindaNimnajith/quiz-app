@@ -63,12 +63,10 @@ const Settings = () => {
     }
     setLoader(true)
     axios.put(`${settingsApi}settings`, data).then(res => {
-      if (res.data.status === 201) {
+      if (res.data.status === 200) {
         setLoader(false)
         setMessage(res.data.message)
         toggleSuccessModal()
-      } else if (res.data.status === 409) {
-        setError(res.data.message)
       }
       setLoader(false)
     }).catch(error => {

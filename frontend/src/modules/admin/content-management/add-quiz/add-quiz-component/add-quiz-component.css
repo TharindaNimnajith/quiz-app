@@ -1,10 +1,10 @@
 .quiz-wrapper {
     min-width: max-content;
-    width: 75%;
+    width: 70%;
 }
 
 .custom {
-    max-width: 1400px;
+    max-width: 1250px;
 }
 
 .quiz-header {
@@ -19,6 +19,11 @@
 
 .error {
     color: red;
+}
+
+.counter {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .demo-wrapper {
