@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {Input, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
+import {Input, Label, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import axios from 'axios'
+import parse from 'html-react-parser'
 import {quizzesApi, settingsApi, usersApi} from '../../../../config/api.config'
 import {authStoreKey} from '../../../../config/main.config'
 import {AppContext} from '../../../../global/app-context'
@@ -238,27 +239,32 @@ const PlayComponent = () => {
                   <div key={index}
                        className='mt-5'>
                     <div>
-                      {
-                        index < 9 ? (
-                          <label>0{index + 1}.&nbsp;</label>
-                        ) : (
-                          <label>{index + 1}.&nbsp;</label>
-                        )
-                      }
-                      <label>
-                        {item.question}
-                      </label>
-                      <span className='error'>
-                  &nbsp;*
-                </span>
-                    </div>
-                    {
-                      item.hints && (
-                        <div className='mx-4 mt-1'>
-                          <label>Hint: {item.hints}</label>
+                      <div className='my-2'>
+                        <Label>
+                          Question {index + 1}
+                        </Label>
+                        <span className='error'>
+                          &nbsp;*
+                        </span>
+                        <div className='border-style p-3'>
+                          {
+                            parse(item.question)
+                          }
                         </div>
-                      )
-                    }
+                      </div>
+                    </div>
+                    <div>
+                      <div className='my-2'>
+                        <Label>
+                          Hints
+                        </Label>
+                        <div className='border-style p-3'>
+                          {
+                            parse(item.hints)
+                          }
+                        </div>
+                      </div>
+                    </div>
                     <div className='mx-4 mt-2'>
                       <div className='mt-3'>
                         <Input type='radio'
@@ -267,7 +273,10 @@ const PlayComponent = () => {
                                disabled={submitted}
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
-                          1)&nbsp;{item.answer1}
+                          1)
+                          {
+                            parse(item.answer1)
+                          }
                         </label>
                       </div>
                       <div className='mt-2'>
@@ -277,7 +286,10 @@ const PlayComponent = () => {
                                disabled={submitted}
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
-                          2)&nbsp;{item.answer2}
+                          2)
+                          {
+                            parse(item.answer2)
+                          }
                         </label>
                       </div>
                       <div className='mt-2'>
@@ -287,7 +299,10 @@ const PlayComponent = () => {
                                disabled={submitted}
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
-                          3)&nbsp;{item.answer3}
+                          3)
+                          {
+                            parse(item.answer3)
+                          }
                         </label>
                       </div>
                       <div className='mt-2'>
@@ -297,7 +312,10 @@ const PlayComponent = () => {
                                disabled={submitted}
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
-                          4)&nbsp;{item.answer4}
+                          4)
+                          {
+                            parse(item.answer4)
+                          }
                         </label>
                       </div>
                       <div className='mt-2'>
@@ -307,7 +325,10 @@ const PlayComponent = () => {
                                disabled={submitted}
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
-                          5)&nbsp;{item.answer5}
+                          5)
+                          {
+                            parse(item.answer5)
+                          }
                         </label>
                       </div>
                     </div>
@@ -326,6 +347,8 @@ const PlayComponent = () => {
                         </div>
                       )
                     }
+                    <br/>
+                    <hr/>
                   </div>
                 )
               })

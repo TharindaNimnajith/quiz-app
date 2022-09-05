@@ -15,3 +15,9 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+.border-style {
+    border: solid 1px #b4b4b4;
+    border-radius: 5px;
+    background-color: #ececec;
+}
