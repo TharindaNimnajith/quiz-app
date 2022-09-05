@@ -1,5 +1,4 @@
 const QuizModel = require('../models/quizzes.model')
-const SettingsModel = require("../models/settings.model");
 
 const addQuiz = async (req, res) => {
   let existingQuiz
@@ -90,35 +89,16 @@ const getQuiz = async (req, res) => {
 
 const getQuizByLessonAndLevel = async (req, res) => {
   let quiz
-  let lesson
 
   const {
-    level
+    lesson,
+    quizLevel
   } = req.params
 
   try {
-    lesson = await SettingsModel.findOne({
-      key: 'Lesson'
-    })
-  } catch (error) {
-    console.error(error)
-    res.status(500).send(error)
-  }
-
-  try {
     quiz = await QuizModel.findOne({
-      lesson: lesson.value,
-      quizLevel: level
-    })
-  } catch (error) {
-    console.error(error)
-    res.status(500).send(error)
-  }
-
-  try {
-    quiz = await QuizModel.findOne({
-      lesson: lesson,
-      quizLevel: level
+      lesson,
+      quizLevel
     })
   } catch (error) {
     console.error(error)

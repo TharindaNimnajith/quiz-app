@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import {Input, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 import axios from 'axios'
-import {quizzesApi, usersApi} from '../../../../config/api.config'
+import {quizzesApi, settingsApi, usersApi} from '../../../../config/api.config'
 import {authStoreKey} from '../../../../config/main.config'
 import {AppContext} from '../../../../global/app-context'
 import {setLocalStorageItem} from '../../../../helpers/local-storage.helpers'
@@ -35,9 +35,21 @@ const PlayComponent = () => {
   }, [])
 
   const loadData = async () => {
-    if (appContext.loginData.level !== 'Done') {
+    setLoader(true)
+    let lesson = 1
+    await axios.get(`${settingsApi}settings/Lesson`).then(res => {
+      lesson = res.data.setting.value
+      setLoader(false)
+    }).catch(error => {
+      setError('An unexpected error occurred. Please try again later.')
+      setLoader(false)
+      console.error(error)
+    })
+    const quizLevel = appContext.loginData.levels.find(item => item.lesson === lesson).level
+    if (quizLevel !== 'Done') {
       setLoader(true)
-      axios.get(`${quizzesApi}quizzes/level/${appContext.loginData.level}`).then(res => {
+      axios.get(`${quizzesApi}quizzes/${lesson}/${quizLevel}`).then(res => {
+        console.log(res.data)
         setData(res.data.quiz)
         setLoader(false)
       }).catch(error => {
