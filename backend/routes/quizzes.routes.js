@@ -6,7 +6,7 @@ const router = express.Router()
 router.post('/quizzes', QuizController.addQuiz)
 router.delete('/quizzes/:id', QuizController.deleteQuiz)
 router.get('/quizzes/:id', QuizController.getQuiz)
-router.get('/quizzes/level/:level', QuizController.getQuizByLevel)
+router.get('/quizzes/level/:level', QuizController.getQuizByLessonAndLevel)
 router.get('/quizzes', QuizController.getQuizList)
 
 module.exports = router

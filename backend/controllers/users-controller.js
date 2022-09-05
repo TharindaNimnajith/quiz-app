@@ -34,8 +34,21 @@ const addUser = async (req, res) => {
     lastName,
     email,
     password: bcrypt.hashSync(password, 10),
-    level: 'General',
-    total: 0
+    levels: [{
+      lesson: 1,
+      level: 'General'
+    }, {
+      lesson: 2,
+      level: 'General'
+    }, {
+      lesson: 3,
+      level: 'General'
+    }, {
+      lesson: 4,
+      level: 'General'
+    }],
+    total: 0,
+    results: []
   })
 
   try {
@@ -107,7 +120,7 @@ const updateUser = async (req, res) => {
   } = req.params
 
   const {
-    level,
+    levels,
     total,
     results
   } = req.body
@@ -119,7 +132,7 @@ const updateUser = async (req, res) => {
     res.status(500).send(error)
   }
 
-  user.level = level
+  user.levels = levels
   user.total = total
   user.results = results
 
