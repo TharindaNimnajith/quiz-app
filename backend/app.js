@@ -11,6 +11,7 @@ const HttpErrors = require('./config/errors.config')
 const UsersRoutes = require('./routes/users.routes')
 const AuthRoutes = require('./routes/auth.routes')
 const QuizzesRoutes = require('./routes/quizzes.routes')
+const SettingsRoutes = require('./routes/quizzes.routes')
 
 require('dotenv').config()
 
@@ -30,6 +31,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')))
 app.use('/users', UsersRoutes)
 app.use('/auth', AuthRoutes)
 app.use('/quizzes', QuizzesRoutes)
+app.use('/settings', SettingsRoutes)
 
 app.get('*', (req, res) => {
   res.status(200).send('Server is running');

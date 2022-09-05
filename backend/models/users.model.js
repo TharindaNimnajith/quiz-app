@@ -3,7 +3,7 @@
 const mongoose = require('mongoose')
 const autoIncrement = require('mongoose-auto-increment')
 const uniqueValidator = require('mongoose-unique-validator')
-const {userTypes, quizLevels, answers} = require('../config/enums.config')
+const {userTypes, userLevels, quizLevels, answers, lessons} = require('../config/enums.config')
 
 const Schema = mongoose.Schema
 
@@ -46,13 +46,22 @@ const UsersSchema = new Schema({
     trim: true,
     default: 'User'
   },
-  level: {
-    type: String,
-    enum: userTypes,
-    required: false,
-    unique: false,
-    trim: true
-  },
+  levels: [{
+    lesson: {
+      type: Number,
+      enum: lessons,
+      required: false,
+      unique: false,
+      trim: true
+    },
+    level: {
+      type: String,
+      enum: userLevels,
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }],
   total: {
     type: Number,
     required: false,
@@ -60,6 +69,13 @@ const UsersSchema = new Schema({
     trim: true
   },
   results: [{
+    lesson: {
+      type: Number,
+      enum: lessons,
+      required: false,
+      unique: false,
+      trim: true
+    },
     quizLevel: {
       type: String,
       enum: quizLevels,
