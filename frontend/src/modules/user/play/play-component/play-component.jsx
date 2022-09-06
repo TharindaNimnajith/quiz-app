@@ -280,7 +280,7 @@ const PlayComponent = () => {
                         </label>
                         <label>
                           {
-                            parse(item.answer2)
+                            parse(item.answer1)
                           }
                         </label>
                       </div>
@@ -310,7 +310,7 @@ const PlayComponent = () => {
                         </label>
                         <label>
                           {
-                            parse(item.answer2)
+                            parse(item.answer3)
                           }
                         </label>
                       </div>
@@ -325,7 +325,7 @@ const PlayComponent = () => {
                         </label>
                         <label>
                           {
-                            parse(item.answer2)
+                            parse(item.answer4)
                           }
                         </label>
                       </div>
@@ -340,7 +340,7 @@ const PlayComponent = () => {
                         </label>
                         <label>
                           {
-                            parse(item.answer2)
+                            parse(item.answer5)
                           }
                         </label>
                       </div>
