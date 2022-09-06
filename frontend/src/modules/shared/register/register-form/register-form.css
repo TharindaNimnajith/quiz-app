@@ -26,3 +26,7 @@
 .login-link:active {
     color: #183475;
 }
+
+body:not(.modal-open) {
+    overflow-y: scroll !important;
+}

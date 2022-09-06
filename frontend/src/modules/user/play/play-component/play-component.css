@@ -13,3 +13,7 @@
     border-radius: 5px;
     background-color: #f8f8f8;
 }
+
+body:not(.modal-open) {
+    overflow-y: scroll !important;
+}

@@ -60,6 +60,10 @@
     background-color: #ececec;
 }
 
+body:not(.modal-open) {
+    overflow-y: scroll !important;
+}
+
 /*# sourceMappingURL=react-draft-wysiwyg.css.map*/
 
 .rdw-option-wrapper {

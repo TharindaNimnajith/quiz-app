@@ -50,7 +50,6 @@ const PlayComponent = () => {
     if (quizLevel !== 'Done') {
       setLoader(true)
       axios.get(`${quizzesApi}quizzes/${lesson}/${quizLevel}`).then(res => {
-        console.log(res.data)
         setData(res.data.quiz)
         setLoader(false)
       }).catch(error => {
@@ -84,32 +83,32 @@ const PlayComponent = () => {
     }
   }
 
-  function getLevel(score) {
-    if (appContext.loginData.level === 'General') {
+  function getLevel(score, level) {
+    if (level === 'General') {
       if (score >= 6) {
         return '1B'
       } else {
         return '1A'
       }
-    } else if (appContext.loginData.level === '1A') {
+    } else if (level === '1A') {
       return '1B'
-    } else if (appContext.loginData.level === '1B') {
+    } else if (level === '1B') {
       if (score >= 3) {
         return '2B'
       } else {
         return '2A'
       }
-    } else if (appContext.loginData.level === '2A') {
+    } else if (level === '2A') {
       return '2B'
-    } else if (appContext.loginData.level === '2B') {
+    } else if (level === '2B') {
       if (score >= 3) {
         return '3B'
       } else {
         return '3A'
       }
-    } else if (appContext.loginData.level === '3A') {
+    } else if (level === '3A') {
       return '3B'
-    } else if (appContext.loginData.level === '3B') {
+    } else if (level === '3B') {
       return 'Done'
     } else {
       return 'General'
@@ -124,6 +123,7 @@ const PlayComponent = () => {
     let results = []
     for (let i = 0; i < data.questions.length; i++) {
       results.push({
+        'lesson': data.lesson,
         'quizLevel': data.quizLevel,
         'question': data.questions[i].question,
         'studentAnswer': map.get(i),
@@ -133,8 +133,11 @@ const PlayComponent = () => {
         score = score + 1
       }
     }
+    let levels = appContext.loginData.levels
+    let index = appContext.loginData.levels.findIndex(level => level.lesson === data.lesson)
+    levels[index].level = getLevel(score, levels[index].level)
     const payload = {
-      'level': getLevel(score),
+      'levels': levels,
       'total': appContext.loginData.total + score,
       'results': appContext.loginData.results.concat(results)
     }
@@ -265,7 +268,7 @@ const PlayComponent = () => {
                         </div>
                       </div>
                     </div>
-                    <div className='mx-4 mt-2'>
+                    <div className='mx-1 mt-4'>
                       <div className='mt-3'>
                         <Input type='radio'
                                value={1}
@@ -274,8 +277,10 @@ const PlayComponent = () => {
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
                           1)
+                        </label>
+                        <label>
                           {
-                            parse(item.answer1)
+                            parse(item.answer2)
                           }
                         </label>
                       </div>
@@ -287,6 +292,8 @@ const PlayComponent = () => {
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
                           2)
+                        </label>
+                        <label>
                           {
                             parse(item.answer2)
                           }
@@ -300,8 +307,10 @@ const PlayComponent = () => {
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
                           3)
+                        </label>
+                        <label>
                           {
-                            parse(item.answer3)
+                            parse(item.answer2)
                           }
                         </label>
                       </div>
@@ -313,8 +322,10 @@ const PlayComponent = () => {
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
                           4)
+                        </label>
+                        <label>
                           {
-                            parse(item.answer4)
+                            parse(item.answer2)
                           }
                         </label>
                       </div>
@@ -326,8 +337,10 @@ const PlayComponent = () => {
                                onChange={event => onChangeValue(index, event)}/>
                         <label className='mx-2'>
                           5)
+                        </label>
+                        <label>
                           {
-                            parse(item.answer5)
+                            parse(item.answer2)
                           }
                         </label>
                       </div>

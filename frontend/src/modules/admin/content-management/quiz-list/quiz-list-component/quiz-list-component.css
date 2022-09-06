@@ -1,3 +1,7 @@
 .card-width {
     width: 320px;
 }
+
+body:not(.modal-open) {
+    overflow-y: scroll !important;
+}

@@ -28,3 +28,7 @@
 .error {
     color: red;
 }
+
+body:not(.modal-open) {
+    overflow-y: scroll !important;
+}
