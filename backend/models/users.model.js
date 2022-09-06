@@ -84,7 +84,7 @@ const UsersSchema = new Schema({
       trim: true
     },
     question: {
-      type: String,
+      type: Number,
       required: true,
       unique: false,
       trim: true

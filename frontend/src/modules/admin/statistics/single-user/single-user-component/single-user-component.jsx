@@ -42,8 +42,9 @@ const SingleUserComponent = props => {
       setTotal(data.total)
       setLevels(data.levels)
       setResults(data.results)
+      let csvDataTemp = []
       for (let item of data.results) {
-        csvData.push({
+        csvDataTemp.push({
           lesson: item.lesson,
           level: item.quizLevel,
           question: item.question,
@@ -52,7 +53,7 @@ const SingleUserComponent = props => {
           isCorrect: item.studentAnswer === item.correctAnswer ? 'Correct' : 'Incorrect'
         })
       }
-      setCsvData(csvData)
+      setCsvData(csvDataTemp)
       setLoader(false)
     }).catch(error => {
       setError('An unexpected error occurred. Please try again later.')
@@ -193,7 +194,7 @@ const SingleUserComponent = props => {
                           <td className='text-center'>
                             {item.quizLevel}
                           </td>
-                          <td>
+                          <td className='text-center'>
                             {item.question}
                           </td>
                           <td className='text-center'>

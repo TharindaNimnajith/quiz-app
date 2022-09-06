@@ -125,7 +125,7 @@ const PlayComponent = () => {
       results.push({
         'lesson': data.lesson,
         'quizLevel': data.quizLevel,
-        'question': data.questions[i].question,
+        'question': i + 1,
         'studentAnswer': map.get(i),
         'correctAnswer': data.questions[i].correctAnswer
       })
